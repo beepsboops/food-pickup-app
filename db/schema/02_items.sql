@@ -1,0 +1,14 @@
+-- Drop and recreate Items table
+
+DROP TABLE IF EXISTS items CASCADE;
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  price INT NOT NULL,
+  thumbnail_photo VARCHAR(255) NOT NULL,
+  large_photo VARCHAR(255) NOT NULL,
+  stock INTEGER NOT NULL DEFAULT 0,
+  vegan BOOLEAN NOT NULL DEFAULT FALSE,
+  gluten_free BOOLEAN NOT NULL DEFAULT FALSE
+);
