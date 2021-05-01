@@ -22,6 +22,11 @@ module.exports = (db) => {
       });
   });
 
+  router.get("welcome", (req, res) => {
+    console.log('im trying')
+    res.redirect("/");
+  })
+
   return router;
 };
 

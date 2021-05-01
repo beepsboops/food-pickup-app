@@ -64,6 +64,7 @@
       width: 60%;
       padding: 8px 10px;
       border-radius: 25px;
+      margin-bottom: 0.75em;
 
       .welcome-name {
         display: flex;
@@ -72,14 +73,20 @@
       }
 
     }
-  }
 
-  .profile-display {
-    margin-bottom: 1rem;
+    a {
+      color: black;
+      margin-bottom: 0.75em;
+    }
+
+    a:link, a:visited, a:hover, a:active {
+      text-decoration: none;
+    }
   }
 
   .btn {
-    margin-bottom: 1rem;
     width: 40%;
+    margin-bottom: 0.75em;
   }
+
 }
