@@ -34,6 +34,11 @@ module.exports = (db) => {
     res.render('orders/:order_id')
   });
 
+  // temp order ID get
+  router.get("/order_submit", (req, res) => {
+    res.render('order_submit')
+  });
+
   router.get("/order_status", (req, res) => {
     res.render('order_status')
   });
