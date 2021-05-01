@@ -82,14 +82,15 @@ TASKS
     [ ] Login side bar
         * One click login
     [ ] Home page
-        * Copy this design: https://smallvictory.ca/
-    [ ] Full menu
-        * See wireframe
-    [ ] Individual menu item
-        * See wireframe
+        * Design: Copy this: https://smallvictory.ca/
+    [ ] [MICHELLE] Full menu
+        * Design: See wireframe
+    [ ] [MICHELLE] Individual menu item
+        * Design: See wireframe
+        * Create seeds
         * Item can be ordered here
         * Quantity can be specified here
-    [ ] Checkout
+    [ ] [DONNY] Checkout
         * Profile summary
         * Pickup estimate (30 mins)
         * Payment
@@ -104,7 +105,7 @@ TASKS
     [ ] Login
         * Email field
         * Password field
-    [ ] Order status
+    [ ] [ADRIAN] Order status 
         * AJAX elements
         1. Order placed/received via checkout page(ie promise made)
         2. Order object created (behind the scenes) -> order status page updates ("order received") & SMS sent to both customer & restaurant (promise pending)
