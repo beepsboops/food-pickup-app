@@ -1,9 +1,18 @@
 // See: https://sass-lang.com/
+@import "layout/_header.scss";
+@import "layout/sidebar.scss";
+@import "pages/errors";
+@import "pages/login";
+@import "pages/menu_item";
+@import "pages/menu";
+@import "pages/order_history";
+@import "pages/order_submit";
+@import "pages/welcome";
 
 body {
   background-color: #EEE;
 
   h1 {
-    color: #244751;
+    color: red;
   }
 }
