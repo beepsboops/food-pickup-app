@@ -2,11 +2,13 @@
 @import "layout/_header.scss";
 @import "pages/errors";
 @import "pages/login";
+@import "pages/register";
 @import "pages/menu_item";
 @import "pages/menu";
 @import "pages/order_history";
 @import "pages/order_submit";
 @import "pages/home";
+@import "pages/profile";
 
 body {
   background-color: #EEE;
