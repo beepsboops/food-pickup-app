@@ -7,5 +7,6 @@ CREATE TABLE orders (
   item_id INTEGER REFERENCES items(id),
   time_placed TIMESTAMP,
   time_confirmed TIMESTAMP,
-  time_fulfilled TIMESTAMP
+  time_fulfilled TIMESTAMP,
+  order_status VARCHAR(255)
 );

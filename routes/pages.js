@@ -9,6 +9,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+  // general get methods/templates, please delete or rewrite if neccessary
   router.get("/errors", (req, res) => {
     res.render('error')
   });
@@ -25,12 +26,12 @@ module.exports = (db) => {
     res.render('menu')
   });
 
-  router.get("/order_history", (req, res) => {
+  router.get("/orders", (req, res) => {
     res.render('order_history')
   });
 
   router.get("/order_history/:order_id", (req, res) => {
-    res.render('order_history')
+    res.render('orders/:order_id')
   });
 
   router.get("/order_status", (req, res) => {
