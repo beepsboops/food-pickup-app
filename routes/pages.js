@@ -33,8 +33,8 @@ module.exports = (db) => {
     res.render('order_history')
   });
 
-  router.get("/order_sumbit", (req, res) => {
-    res.render('order_sumbit')
+  router.get("/order_status", (req, res) => {
+    res.render('order_status')
   });
 
   router.get("/profile", (req, res) => {
