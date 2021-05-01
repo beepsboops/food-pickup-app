@@ -1,3 +1,18 @@
+REQUIREMENTS
+
+Option 10: Food Pick-up Ordering
+A food ordering experience for a single restaurant. Hungry clients of this fictitious restaurant can visit its website, select one or more dishes and place an order for pick-up. They will receive a notification when their order is ready.
+
+The restaurant and client both need to be notified since this app serves as an intermediary.
+
+When an order is placed the restaurant receives the order via SMS. The restaurant can then specify how long it will take to fulfill it. Once they provide this information, the website updates for the client and also notifies them via SMS.
+
+You can use a modern telecomm API service such as Twilio to implement SMS communication from the website to the client and restaurant.
+
+For inspiration check out how Ritual works, but keep in mind that's implemented as a native app and serves more than one restaurant.
+
+
+
 User Stories
 
 A user story describes how users will intereact with your application/
@@ -60,3 +75,42 @@ post /submit-order - submit order, add into database
 Delete
 post /orders/:order_id/delete - delete order???
 (delete only avaialble withint certain time???)
+
+TASKS
+
+[ ] Create pages/templates
+    [ ] Login side bar
+        * One click login
+    [ ] Home page
+        * Copy this design: https://smallvictory.ca/
+    [ ] Full menu
+        * See wireframe
+    [ ] Individual menu item
+        * See wireframe
+        * Item can be ordered here
+        * Quantity can be specified here
+    [ ] Checkout
+        * Profile summary
+        * Pickup estimate (30 mins)
+        * Payment
+        * Items (can change quanity here - stretch?)
+        * Price
+          * Subtotal
+          * Delivery Fee
+          * Taxes
+          * Tip
+          * Total
+        * Place order button
+    [ ] Login
+        * Email field
+        * Password field
+    [ ] Order status
+        * AJAX elements
+        1. Order placed/received via checkout page(ie promise made)
+        2. Order object created (behind the scenes) -> order status page updates ("order received") & SMS sent to both customer & restaurant (promise pending)
+        3. Restaurant specifies amount of pickup time via SMS
+        4. Order status page updates with pickup time (counts down) and simulataneously customer receives SMS with pickup time
+        5. Order is ready -> Customer recieves SMS notification (promise fulfilled) 
+    [ ] User profile (stretch?)
+    [ ] Order history (stretch?)
+
