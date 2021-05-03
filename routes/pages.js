@@ -18,9 +18,7 @@ module.exports = (db) => {
     res.render('login')
   });
 
-  router.get("/menu", (req, res) => {
-    res.render('menu')
-  });
+
 
   router.get("/menu/:item_id", (req, res) => {
     res.render('menu')
