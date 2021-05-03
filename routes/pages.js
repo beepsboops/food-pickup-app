@@ -50,14 +50,6 @@ module.exports = () => {
     res.render('menu')
   });
 
-  router.get("/orders", (req, res) => {
-    res.render('order_history')
-  });
-
-  router.get("/order_history/:order_id", (req, res) => {
-    res.render('orders/:order_id')
-  });
-
   // temp order ID get
   router.get("/order_submit", (req, res) => {
     getOrderData()
@@ -84,16 +76,24 @@ module.exports = () => {
   })
 
   router.get("/order_status", (req, res) => {
-    console.log(typeof req.headers.cookie)
-    res.render('order_status')
+    const templateVars = {
+      displayName: req.cookies.displayName
+    }
+    res.render('order_status', templateVars)
   });
 
   router.get("/profile", (req, res) => {
-    res.render('profile')
+    const templateVars = {
+      displayName: req.cookies.displayName
+    }
+    res.render('profile', templateVars)
   });
 
   router.get("/register", (req, res) => {
-    res.render('register')
+    const templateVars = {
+      displayName: req.cookies.displayName
+    }
+    res.render('register', templateVars)
   });
 
 
