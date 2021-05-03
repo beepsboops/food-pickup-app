@@ -29,3 +29,10 @@ Confirm Order
   - update neccessary tables
   - set orders.time_created timestamp 
 - need to be able to see this on order history
+
+
+TO DO:
+- update SQL table values on submit 
+- change buttons to target individual unique elements
+- generate order ID instead of random item #, maybe this will help set unique IDs instead of having to generate them somewhere else??? 
+- Think about CSS and overtheme/colors
