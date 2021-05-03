@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 
 const { getUserWithEmail, getOrderData } = require ('./database');
-const { getMenuItems } = require('./menuQuery');
+const { getMenuItems, getItemById } = require('./menuQuery');
 
 module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
@@ -53,7 +53,19 @@ module.exports = () => {
   });
 
   router.get("/menu/:item_id", (req, res) => {
-    res.render('menu')
+    console.log(req.params.item_id);
+    let id = req.params.item_id;
+    getItemById(id)
+    .then((results) => {
+      console.log('results:', results)
+      const templateVars = {
+        results
+      }
+      res.render('menu_item', templateVars)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
   });
 
   router.get("/orders", (req, res) => {

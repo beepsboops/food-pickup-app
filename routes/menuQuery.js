@@ -5,7 +5,7 @@ const pool = new Pool({
   user: 'vagrant',
   password: '123',
   host: 'localhost',
-  database: 'db'
+  database: 'midterm'
 });
 
 
@@ -21,3 +21,13 @@ const pool = new Pool({
 
 
  exports.getMenuItems = getMenuItems;
+
+ const getItemById = (id) => {
+  const menuQuery = `SELECT * FROM items WHERE id = ${id}`;
+
+  return pool.query(menuQuery)
+       .then((result) => {return result.rows})
+       .catch((err) => {console.log(err.message)});
+   };
+
+   exports.getItemById = getItemById;
