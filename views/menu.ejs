@@ -30,11 +30,13 @@
     <main class='menu-container'>
       <h1>I am the menu page</h1>
       <div class='card'>
-        <h4><%= results.name %></h4>
-        <p><%= results.description %></p>
-        <p class='price'><%= results.price %></p>
-        <button type="button" class="btn btn-dark btn-sm">View Item <%= results.id %></button>
-        <img src=<%= results.thumbnail_photo %> width="170" height="170">
+        <% for(let i=0; i<results.length; i++) { %>
+        <h4><%= results[i].name %></h4>
+        <p><%= results[i].description %></p>
+        <p class='price'><%= results[i].price %></p>
+        <button type="button" class="btn btn-dark btn-sm">View Item <%= results[i].id %></button>
+        <img src=<%= results[i].thumbnail_photo %> width="170" height="170">
+        <% } %>
       </div>
     </main>
 
