@@ -29,15 +29,20 @@
     <main class='order-history-container'>
       <h1>I am the order history page</h1>
 
+      <form method="POST" action="/orders">
+        <div class="container">
+          <h1>Your Order</h1>
 
-      <form method="POST" action="/orders/checkout">
-        <div class="form-group">
-          <div class="form-group">
-            <label for="order-text">Your order</label>
-            <textarea class="form-control" id="order-text-area" rows="3"></textarea>
-          </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+          <label for="order"><b>Order</b></label>
+          <input type="text" placeholder="text" name="order">
+
+          <button type="submit" class="btn btn-primary">Order</button>
+        </div>
+
+        </div>
       </form>
+
+      </div>
 
 
 

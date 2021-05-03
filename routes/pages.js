@@ -5,52 +5,58 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
+const sendSms = require("../send_sms"); // Inserted by Adrian for twilio
 
 module.exports = (db) => {
   // general get methods/templates, please delete or rewrite if neccessary
   router.get("/errors", (req, res) => {
-    res.render('error')
+    res.render("error");
   });
 
   router.get("/login", (req, res) => {
-    res.render('login')
+    res.render("login");
   });
 
   router.get("/menu", (req, res) => {
-    res.render('menu')
+    res.render("menu");
   });
 
   router.get("/menu/:item_id", (req, res) => {
-    res.render('menu')
+    res.render("menu");
   });
 
   router.get("/orders", (req, res) => {
-    res.render('order_history')
+    res.render("order_history");
   });
 
   router.get("/order_history/:order_id", (req, res) => {
-    res.render('orders/:order_id')
+    res.render("orders/:order_id");
   });
 
   // temp order ID get
   router.get("/order_submit", (req, res) => {
-    res.render('order_submit')
+    res.render("order_submit");
   });
 
   router.get("/order_status", (req, res) => {
-    res.render('order_status')
+    res.render("order_status");
   });
 
   router.get("/profile", (req, res) => {
-    res.render('profile')
+    res.render("profile");
   });
 
   router.get("/register", (req, res) => {
-    res.render('register')
+    res.render("register");
   });
 
+  router.post("/orders", (req, res) => {
+    sendSms();
+    console.log(req.body);
+    res.redirect("/orders");
+  });
 
   return router;
 };
