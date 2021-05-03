@@ -27,7 +27,14 @@
   <body>
     <%- include('partials/_header') %>
     <main class='login-container'>
-      <h1>I am the login</h1>
+      <h3>User Login</h3>
+      <form action="/login" method="POST">
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" id="email">
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" id="password">
+        <button type="submit">Login</button>
+      </form>
     </main>
 
     <!-- Bootstrap required scripts -->

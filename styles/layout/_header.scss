@@ -79,6 +79,7 @@
     a {
       color: black;
       margin-bottom: 0.75em;
+
     }
 
     a:link, a:visited, a:hover, a:active {
@@ -108,5 +109,9 @@
   .nav-logo {
     display: flex;
     align-items: center;
+  }
+
+  #login-button {
+    color: white;
   }
 }

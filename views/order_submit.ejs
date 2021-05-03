@@ -27,38 +27,48 @@
   <body>
     <%- include('partials/_header') %>
     <main class='order-submit-container'>
-      <h1>I am the order submit page</h1>
+      <h3>Order Summary</h3>
+      <br>
+      <h4>Name: <%= results[0].user_name %></h4>
+      <h5>Phone: <%= results[0].phone %></h5>
+      <h5>Order #<%= results[0].order_id %></h5>
+      <% const event = new Date(results[0].time_placed);%>
+      <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
+      <h5><%= event.toLocaleDateString(undefined, options) %></h5>
+      <form class="order-submission-data">
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Order #3765</th>
-            <th scope="col">Mar 12, 2021</th>
-            <th scope="col">Quantity</th>
+            <th scope="col">Item #</th>
+            <th scope="col">Item Name</th>
             <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
           </tr>
         </thead>
-        <tbody>
-          <% for(let i=1; i<7; i++) { %>
-            <tr>
-              <td><%= i %></td>
-              <td>Order Description</td>
+        <tbody class='table-body'>
+          <% let total = 0 %>
+          <% for(let i=0; i<results.length; i++) { %>
+            <tr class='order-data-row'>
+              <td class="order-submission-id"><%= i+1 %></td>
+              <td class="item-name"><%= results[i].item_name %></td>
+              <td>$<%= (results[i].price / 100).toFixed(2) %></td>
               <td>
                 <div class="quantity-counter">
                   <button type="button" class="btn btn-dark button-down">-</button>
-                <!-- need to pull value from when it was added to cart -->
-                <input type="text" value="1" class='quantity-value'>
+
+                <input type="text" class='quantity-value' value=<%= results[i].quantity %>>
                 <button type="button" class="btn btn-dark button-up">+</button>
                 </div>
               </td>
-              <td>Price</td>
-              <td>
-                <form method="POST"><button type="submit">Delete</button></form>
-              </td>
+              <td>$<%= (results[i].price / 100).toFixed(2) * results[i].quantity%></td>
             </tr>
+            <% total += (results[i].price / 100).toFixed(2) * results[i].quantity %>
           <% } %>
         </tbody>
       </table>
-      <form method="POST">
+        <h3>Total Price</h3>
+        <h3>$<%= total %></h3>
         <button type="submit">Confirm Order</button>
       </form>
     </main>
