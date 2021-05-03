@@ -4,7 +4,8 @@ const router  = express.Router();
 const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 
-const { getUserWithEmail, getOrderData } = require ('./database')
+const { getUserWithEmail, getOrderData } = require ('./database');
+const { getMenuItems } = require('./menuQuery');
 
 module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
@@ -39,7 +40,16 @@ module.exports = () => {
   });
 
   router.get("/menu", (req, res) => {
-    res.render('menu')
+    getMenuItems()
+    .then((results) => {
+      const templateVars = {
+        results
+      }
+      res.render('menu', templateVars)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
   });
 
   router.get("/menu/:item_id", (req, res) => {
