@@ -69,6 +69,7 @@ const updateOrderStatus = function(dataArray) {
 exports.updateOrderStatus = updateOrderStatus;
 
 const updateOrderSubmission = function(dataArray) {
+  let array = [];
   for (let i=1; i<dataArray.lenght; i++) {
     const queryString = `
     UPDATE order_submissions
@@ -77,36 +78,12 @@ const updateOrderSubmission = function(dataArray) {
     `;
     const values = [dataArray[0].order_id, dataArray[i].id, dataArray[i].quantity]
 
-    return pool
-    .query(queryString, values)
-      .then((result) => {
-        return result.rows;
-      })
-      .catch((err) => {
-        console.log(err.message)
-      });
+    array.push(pool.query(queryString, values))
   }
+
+  return Promise.all(array)
 
 };
 
 exports.updateOrderSubmission = updateOrderSubmission;
 
-const confirmOrder = function(dataArray) {
-  const queryString = `
-  UPDATE orders
-  SET time_fulfilled = $2, order_status = $3
-  WHERE order_id=$1;
-  `;
-  const values = [dataArray[0].order_id, new Date(), 'Delivered']
-
-  return pool
-  .query(queryString, values)
-    .then((result) => {
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message)
-    });
-};
-
-exports.confirmOrder = confirmOrder;

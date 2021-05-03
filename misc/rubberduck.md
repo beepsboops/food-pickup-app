@@ -29,3 +29,12 @@ Confirm Order
   - update neccessary tables
   - set orders.time_created timestamp 
 - need to be able to see this on order history
+
+
+Issues:
+- 2 posts?? what is going there? ajax + routing redundant? 
+- JSON runs into errors on second post method it looks like? 
+- individual click buttons - using loop to find unique IDs
+- how to get table length value from EJS? 
+- how to use data gloabally for login sidebar?? 
+ - set display name as cookie and check for cookie value

@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 // const bodyParser = require("body-parser");
 // router.use(bodyParser.urlencoded({ extended: true }));
-const { getUserWithEmail, getOrderData } = require ('./database')
+const { getUserWithEmail, getOrderData, updateOrderSubmission, updateOrderStatus } = require ('./database')
 
 module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
@@ -24,11 +24,11 @@ module.exports = () => {
     getUserWithEmail(email)
     .then((results) => {
       if (results.password === password) {
-        res.cookie('cookieName', 'cheese')
         const templateVars = {
           displayName: results.name,
           phone: results.phone
         }
+        res.cookie('displayName', templateVars.displayName)
         return res.render("home", templateVars);
       } else {
         return res.redirect("/login");
@@ -40,7 +40,10 @@ module.exports = () => {
   });
 
   router.get("/menu", (req, res) => {
-    res.render('menu')
+    const templateVars = {
+      displayName: req.cookies.displayName
+    }
+    res.render('menu', templateVars)
   });
 
   router.get("/menu/:item_id", (req, res) => {
@@ -60,7 +63,8 @@ module.exports = () => {
     getOrderData()
     .then((results) => {
       const templateVars = {
-        results
+        results,
+        displayName: req.cookies.displayName
       }
       res.render('order_submit', templateVars)
     })
@@ -70,12 +74,13 @@ module.exports = () => {
   });
 
   router.post("/order_submit", (req, res) => {
-    // update database here??
-    console.log(req.body.orderSubmissionData)
-    let data = JSON.parse(req.body.orderSubmissionData)
-    console.log('working', data);
-    // write and implment helper function
-    return res.render('order_status');
+    let data = req.body.orderSubmissionData
+    updateOrderSubmission(data)
+      .then(() => updateOrderStatus(data)
+      .then(res.send("Order Status Updated")))
+
+    // Promise.all([updateOrderSubmission(data), confirmOrder(data)])
+    //   .then(res.send("Order Status Updated")))
   })
 
   router.get("/order_status", (req, res) => {
