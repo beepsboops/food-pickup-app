@@ -1,3 +1,8 @@
 -- Orders table seeds here
-INSERT INTO orders (user_id, item_id, time_placed, time_confirmed, time_fulfilled)
-VALUES (3, 5, '2008-01-01 00:00:01', '2008-01-01 00:03:01', '2008-01-01 00:40:01');
+INSERT INTO orders (user_id, time_placed, time_confirmed, time_fulfilled, order_status)
+VALUES
+  (1, '2008-01-01 00:00:00', '2008-01-01 00:03:00', '2008-01-01 00:40:00', 'Delivered'),
+  (1, '2010-02-12 06:06:00', '2010-02-12 06:10:00', '2010-02-12 06:35:00', 'Delivered'),
+  (1, '2020-12-10 18:15:00', '2020-12-10 18:18:00', '2020-12-10 18:55:00', 'Delivered'),
+  (1, '2021-03-11 02:01:00', '2020-12-10 02:04:00', '2020-12-10 02:46:00', 'Started');
+
