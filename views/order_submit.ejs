@@ -31,11 +31,11 @@
       <br>
       <h4>Name: <%= results[0].user_name %></h4>
       <h5>Phone: <%= results[0].phone %></h5>
-      <h5>Order #<%= results[0].order_id %></h5>
+      <h5 class='order-id'>Order #<%= results[0].order_id %></h5>
       <% const event = new Date(results[0].time_placed);%>
       <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
       <h5><%= event.toLocaleDateString(undefined, options) %></h5>
-      <form class="order-submission-data">
+      <form class="order-submission-data" method="POST">
       <table class="table">
         <thead>
           <tr>
@@ -50,14 +50,13 @@
           <% let total = 0 %>
           <% for(let i=0; i<results.length; i++) { %>
             <tr class='order-data-row'>
-              <td class="order-submission-id"><%= i+1 %></td>
-              <td class="item-name"><%= results[i].item_name %></td>
+              <td class="order-submission-id" id="item-id-<%= i %>"><%= results[i].order_submission_id %></td>
+              <td class="item-name" id="item-name-<%= i %>"><%= results[i].item_name %></td>
               <td>$<%= (results[i].price / 100).toFixed(2) %></td>
               <td>
                 <div class="quantity-counter">
                   <button type="button" class="btn btn-dark button-down">-</button>
-
-                <input type="text" class='quantity-value' value=<%= results[i].quantity %>>
+                <input type="text" class='quantity-value' value='<%= results[i].quantity %>' id='item-id-<%= i %>'>
                 <button type="button" class="btn btn-dark button-up">+</button>
                 </div>
               </td>

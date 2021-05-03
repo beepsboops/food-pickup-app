@@ -1,6 +1,7 @@
 <header class="header-container">
   <div id="body-overlay"></div>
   <nav class="real-menu" role="navigation">
+    <!-- check if cookie??? -->
     <% if(typeof displayName == 'undefined') { %>
       <div class="side-bar-content">
         <a href="/login" class="btn btn-dark" id="login-button">Sign In</a>
@@ -13,6 +14,7 @@
           <i class="fas fa-user-astronaut fa-4x"></i>
           <div class="welcome-name">
             <span>Hello!</span>
+            <!-- grab user name here -->
             <span>Donny</span>
           </div>
         </div>
@@ -27,6 +29,6 @@
     <button id="open-menu"><i class="fas fa-hamburger fa-2x"></i></button>
     <h3>Order Co.</h3>
   </div>
-  <a href="/order_submit" class="btn btn-warning checkout-button">Checkout</a>
+  <a href="/order_submit" class="btn btn-warning checkout-button">View Cart</a>
 </header>
 

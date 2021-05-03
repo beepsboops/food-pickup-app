@@ -12,7 +12,7 @@ $(document).ready(function() {
   $('#open-menu').click(toggleMenu);
   $('#body-overlay').click(toggleMenu);
 
-
+  // change item quantities
   $('.button-down').click(function() {
     let quantity = Number($('.quantity-value').val());
     if (quantity > 0) {
@@ -43,26 +43,40 @@ $(document).ready(function() {
     $('.quantity-value').val(quantity)
   });
 
+  // read and submit form data
   $('.order-submission-data').submit(() => {
     const allRows = $('.order-data-row')
-    const finalArray = [];
+    const orderSubmissionData = [{
+      order_id: Number($(`.order-id`).html().split("#").pop()),
+      time_confirmed: new Date()
+    }];
 
     allRows.each((index, element) => {
       let id = $(`.order-submission-id:eq(${index})`).html();
       let itemName = $(`.item-name:eq(${index})`).html();
       let quantity = $(`.quantity-value:eq(${index})`).val();
       let tableObj = { id, itemName, quantity }
-      console.log('logging values', id, itemName, quantity)
-      finalArray.push(tableObj);
+      orderSubmissionData.push(tableObj);
     })
 
 
     $.ajax({
       method: "POST",
       url: "/order_submit",
-      data: { finalArray: JSON.stringify(finalArray) }
-    });
+      data: { orderSubmissionData: JSON.stringify(orderSubmissionData) }
+    })
   })
 
+  // change order status
+  $('.wrapper').click(() => {
+    // add SQL function to update order status - active to processed? to confirmed?
+    $('.wrapper').replaceWith("<p>Order Confirmed! You're ETA is 40 minutes! Redirecting to home...</p>")
+    setTimeout(function() {
+      window.location.replace("/");
+    }, 3000);
+  });
+
 });
+
+
 

@@ -3,7 +3,8 @@ const router  = express.Router();
 
 const cookieParser = require('cookie-parser')
 router.use(cookieParser());
-
+// const bodyParser = require("body-parser");
+// router.use(bodyParser.urlencoded({ extended: true }));
 const { getUserWithEmail, getOrderData } = require ('./database')
 
 module.exports = () => {
@@ -70,12 +71,15 @@ module.exports = () => {
 
   router.post("/order_submit", (req, res) => {
     // update database here??
-    console.log('working', JSON.parse(req.body.finalArray));
+    console.log(req.body.orderSubmissionData)
+    let data = JSON.parse(req.body.orderSubmissionData)
+    console.log('working', data);
     // write and implment helper function
-    res.render('order_status');
+    return res.render('order_status');
   })
 
   router.get("/order_status", (req, res) => {
+    console.log(typeof req.headers.cookie)
     res.render('order_status')
   });
 
