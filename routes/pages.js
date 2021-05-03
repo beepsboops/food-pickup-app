@@ -1,14 +1,12 @@
-/*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (db) => {
+const cookieParser = require('cookie-parser')
+router.use(cookieParser());
+
+const { getUserWithEmail, getOrderData } = require ('./database')
+
+module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
   router.get("/errors", (req, res) => {
     res.render('error')
@@ -19,6 +17,30 @@ module.exports = (db) => {
   });
 
 
+  //Login Post Method
+  router.post("/login", (req, res) => {
+    const {email, password} = req.body;
+    getUserWithEmail(email)
+    .then((results) => {
+      if (results.password === password) {
+        res.cookie('cookieName', 'cheese')
+        const templateVars = {
+          displayName: results.name,
+          phone: results.phone
+        }
+        return res.render("home", templateVars);
+      } else {
+        return res.redirect("/login");
+      }
+    })
+    .catch(e => {
+      console.error(e);
+    });
+  });
+
+  router.get("/menu", (req, res) => {
+    res.render('menu')
+  });
 
   router.get("/menu/:item_id", (req, res) => {
     res.render('menu')
@@ -34,8 +56,24 @@ module.exports = (db) => {
 
   // temp order ID get
   router.get("/order_submit", (req, res) => {
-    res.render('order_submit')
+    getOrderData()
+    .then((results) => {
+      const templateVars = {
+        results
+      }
+      res.render('order_submit', templateVars)
+    })
+    .catch(e => {
+      console.error(e);
+    });
   });
+
+  router.post("/order_submit", (req, res) => {
+    // update database here??
+    console.log('working', JSON.parse(req.body.finalArray));
+    // write and implment helper function
+    res.render('order_status');
+  })
 
   router.get("/order_status", (req, res) => {
     res.render('order_status')
