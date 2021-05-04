@@ -11,12 +11,16 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
-const sendSms = client.messages
-  .create({
-    body: "Hi from Lighthouse Full Stack Burgers 🤤 Your order was received! 8",
-    from: "+16044094601",
-    to: "+16047150800",
-  })
-  .then((message) => console.log(message.sid));
+const sendSms = function (code) {
+  const body = `Your message content: ${code}`;
+  console.log("sendSms: body:", body);
+  client.messages
+    .create({
+      body: body,
+      from: "+16044094601",
+      to: "+16047150800",
+    })
+    .then((message) => console.log(message.sid));
+};
 
-module.exports = sendSms;
+module.exports = { sendSms };

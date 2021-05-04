@@ -6,6 +6,7 @@ router.use(cookieParser());
 
 const { getUserWithEmail, getOrderData } = require("./database");
 const { getMenuItems } = require("./menuQuery");
+const { sendSms } = require("../send_sms");
 
 module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
@@ -97,7 +98,7 @@ module.exports = () => {
   });
 
   router.post("/orders", (req, res) => {
-    sendSms();
+    sendSms(req.body.order);
     console.log(req.body);
     res.redirect("/orders");
   });
