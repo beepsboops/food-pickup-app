@@ -42,22 +42,26 @@ const addOrderItem = (order_id, item_id, quantity) => {
 exports.addOrderItem = addOrderItem;
 
 
+
 const getCurrentOrder = (user_id) => {
-  const query = `SELECT id FROM orders WHERE user_id = $1 AND order_status = 'Started'`
-  const insertQuery = `Insert Into orders (user_id, order_status) values ($1, 'Started')
+  const query = `SELECT id FROM orders WHERE user_id = $1 AND order_status = 'Started';`
+  const insertQuery = `INSERT INTO orders (user_id, order_status) VALUES ($1, $2)
   RETURNING id`
 
   return pool.query(query, [user_id])
     .then((result) => {
-      if (result.rows.length >= 1) {
+      if (result.rows.length > 0) {
         return result.rows[0].id
       } else {
-        return pool.query(insertQuery, [user_id])
+        return pool.query(insertQuery, [user_id, 'Started'])
         .then((results) =>
           results.rows[0].id
         )
       }
     })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
 exports.getCurrentOrder = getCurrentOrder;
