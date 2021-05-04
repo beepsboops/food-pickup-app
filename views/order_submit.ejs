@@ -14,6 +14,9 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/document-ready.js"></script>
+    <script type="text/javascript" src="/scripts/order-status.js"></script>
+    <script type="text/javascript" src="/scripts/order-submission.js"></script>
+    <script type="text/javascript" src="/scripts/sidebar.js"></script>
 
     <!-- Awesome Font -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
@@ -26,51 +29,55 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main class='order-submit-container'>
-      <h3>Order Summary</h3>
-      <br>
-      <h4>Name: <%= results[0].user_name %></h4>
-      <h5>Phone: <%= results[0].phone %></h5>
-      <h5>Order #<%= results[0].order_id %></h5>
-      <% const event = new Date(results[0].time_placed);%>
-      <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
-      <h5><%= event.toLocaleDateString(undefined, options) %></h5>
-      <form class="order-submission-data">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Item #</th>
-            <th scope="col">Item Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Subtotal</th>
-          </tr>
-        </thead>
-        <tbody class='table-body'>
-          <% let total = 0 %>
-          <% for(let i=0; i<results.length; i++) { %>
-            <tr class='order-data-row'>
-              <td class="order-submission-id"><%= i+1 %></td>
-              <td class="item-name"><%= results[i].item_name %></td>
-              <td>$<%= (results[i].price / 100).toFixed(2) %></td>
-              <td>
-                <div class="quantity-counter">
-                  <button type="button" class="btn btn-dark button-down">-</button>
-
-                <input type="text" class='quantity-value' value=<%= results[i].quantity %>>
-                <button type="button" class="btn btn-dark button-up">+</button>
-                </div>
-              </td>
-              <td>$<%= (results[i].price / 100).toFixed(2) * results[i].quantity%></td>
+    <main class='order-submit-container card'>
+      <h3 class="card-header">Order Summary</h3>
+      <div class="card-body">
+        <h4 class="card-title">Name: <%= results[0].user_name %></h4>
+        <h5>Phone: <%= results[0].phone %></h5>
+        <h5 class='order-id'>Order #<%= results[0].order_id %></h5>
+        <% const event = new Date(results[0].time_placed);%>
+        <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
+        <h5><%= event.toLocaleDateString(undefined, options) %></h5>
+        <form class="order-submission-data" method="POST">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Item #</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Subtotal</th>
             </tr>
-            <% total += (results[i].price / 100).toFixed(2) * results[i].quantity %>
-          <% } %>
-        </tbody>
-      </table>
-        <h3>Total Price</h3>
-        <h3>$<%= total %></h3>
-        <button type="submit">Confirm Order</button>
-      </form>
+          </thead>
+          <tbody class='table-body'>
+            <% let total = 0 %>
+            <% for(let i=0; i<results.length; i++) { %>
+              <tr class='order-data-row'>
+                <td class="order-submission-id" id="item-id-<%= i %>"><%= results[i].order_submission_id %></td>
+                <td class="item-name" id="item-name-<%= i %>"><%= results[i].item_name %></td>
+                <td class="item-price">$<%= (results[i].price / 100).toFixed(2) %></td>
+                <td class="quantity-counter-container">
+                  <div class="quantity-counter">
+                    <button type="button" class="btn btn-dark button-down" id="button-down-<%= i %>">-</button>
+                  <input type="text" class='quantity-value' value='<%= results[i].quantity %>' id='quantity-value-<%= i %>'>
+                  <button type="button" class="btn btn-dark button-up" id="button-up-<%= i %>">+</button>
+                  </div>
+                </td>
+                <td class="item-subtotal">$<%= (results[i].price / 100).toFixed(2) * results[i].quantity%></td>
+              </tr>
+              <% total += (results[i].price / 100).toFixed(2) * results[i].quantity %>
+            <% } %>
+          </tbody>
+        </table>
+        <div class="checkout-summary">
+          <div class="total-price">
+            <h5>Total Price</h5>
+            <h5 class='total-price-value'>$<%= total %></h5>
+          </div>
+          <button type="submit">Confirm Order</button>
+        </div>
+        </form>
+      </div>
     </main>
 
     <!-- Bootstrap required scripts -->
@@ -79,3 +86,4 @@
   </body>
 </html>
 
+<article   id="electric-cars"   data-columns="3"   data-index-number="12314"   data-parent="cars"> ... </article>

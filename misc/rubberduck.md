@@ -31,8 +31,10 @@ Confirm Order
 - need to be able to see this on order history
 
 
-TO DO:
-- update SQL table values on submit 
-- change buttons to target individual unique elements
-- generate order ID instead of random item #, maybe this will help set unique IDs instead of having to generate them somewhere else??? 
-- Think about CSS and overtheme/colors
+Issues:
+- 2 posts?? what is going there? ajax + routing redundant? 
+- JSON runs into errors on second post method it looks like? 
+- individual click buttons - using loop to find unique IDs
+- how to get table length value from EJS? 
+- how to use data gloabally for login sidebar?? 
+ - set display name as cookie and check for cookie value
