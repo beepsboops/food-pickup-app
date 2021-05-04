@@ -31,13 +31,14 @@
     <%- include('partials/_header') %>
     <main class='menu-item-container'>
       <h1>I am the menu item page</h1>
-      <img src= "images/large_bao.jpg" width="300" height="300">
-      <h4>BAO Buns</h4>
-      <p>Menu item description...</p>
-      <p>Price</p>
-      <form method="" action="">
-        <label>Select Quantity:</label>
-        <input type="number" min="1">
+
+
+      <form class="item-submission" method="POST" action="/menu/<%= result.id %>">
+        <img src= "<%= result.large_photo %>" width="auto" height="300px">
+        <h4><%= result.name %></h4>
+        <p><%= result.description %></p>
+        <p><%= (result.price/100).toFixed(2) %></p>
+        <label>Select Quantity:<input name="quantity" class="item-quantity" type="number" min="1"></label>
         <input type="submit" value="Add to Cart">
       </form>
     </main>

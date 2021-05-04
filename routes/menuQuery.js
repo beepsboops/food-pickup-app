@@ -5,7 +5,7 @@ const pool = new Pool({
   user: 'vagrant',
   password: '123',
   host: 'localhost',
-  database: 'db'
+  database: 'midterm'
 });
 
 
@@ -15,9 +15,56 @@ const pool = new Pool({
      const menuQuery = `SELECT * FROM items`;
 
      return pool.query(menuQuery)
-       .then((result) => {return result.rows})
-       .catch((err) => {console.log(err.message)});
+       .then((result) => {return result.rows});
    };
 
-
  exports.getMenuItems = getMenuItems;
+
+
+
+ const getItemById = (id) => {
+  const menuQuery = `SELECT * FROM items WHERE id = $1`;
+
+  return pool.query(menuQuery, [id])
+       .then((result) => {return result.rows[0]});
+   };
+
+   exports.getItemById = getItemById;
+
+
+//Add new item to cart
+const addOrderItem = (order_id, item_id, quantity) => {
+  const itemQuery = `INSERT INTO order_submissions(order_id, item_id, quantity)
+  VALUES ($1, $2, $3)`
+  const values = [order_id, item_id, quantity];
+
+  return pool.query(itemQuery, values)
+    .then((result) => {return result.rows});
+};
+
+exports.addOrderItem = addOrderItem;
+
+
+const getCurrentOrder = (user_id) => {
+  const query = `SELECT id FROM orders WHERE user_id = $1 AND order_status = 'Started'`
+  const insertQuery = `Insert Into orders (user_id, order_status) values ($1, 'Started')
+  RETURNING id`
+
+  return pool.query(query, [user_id])
+    .then((result) => {
+      if (result.rows.length >= 1) {
+        return result.rows[0].id
+      } else {
+        return pool.query(insertQuery, [user_id])
+        .then((results) =>
+          results.rows[0].id
+        )
+      }
+    })
+};
+
+exports.getCurrentOrder = getCurrentOrder;
+
+
+
+

@@ -4,9 +4,14 @@ const router = express.Router();
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-const { getMenuItems } = require("./menuQuery");
 const { sendSms } = require("../send_sms");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
+const {
+  getMenuItems,
+  getItemById,
+  addOrderItem,
+  getCurrentOrder,
+} = require("./menuQuery");
 // const bodyParser = require("body-parser");
 // router.use(bodyParser.urlencoded({ extended: true }));
 const {
@@ -48,14 +53,53 @@ module.exports = () => {
   });
 
   router.get("/menu", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("menu", templateVars);
+    getMenuItems()
+      .then((results) => {
+        const templateVars = {
+          results,
+          displayName: req.cookies.displayName,
+        };
+        res.render("menu", templateVars);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    //My code above had been deleted in the last commit to add in the displayname cookie below. Let me know your thoughts!
+    // const templateVars = {
+    //   displayName: req.cookies.displayName,
+    // };
+    // res.render("menu", templateVars);
   });
 
   router.get("/menu/:item_id", (req, res) => {
-    res.render("menu");
+    let id = req.params.item_id;
+    getItemById(id)
+      .then((result) => {
+        const templateVars = {
+          result,
+        };
+        res.render("menu_item", templateVars);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  });
+
+  //post menu item to order
+  router.post("/menu/:item_id", (req, res) => {
+    let itemId = req.params.item_id;
+    let quantity = req.body.quantity;
+    //hard coding user id
+    getCurrentOrder(1)
+      .then((order_id) => {
+        console.log("current order:", order_id);
+        return addOrderItem(order_id, itemId, quantity);
+      })
+      .then(() => res.redirect("/menu"))
+      .catch((err) => {
+        console.log(err.message);
+        res.status(500).json(err);
+      });
   });
 
   // temp order ID get
@@ -104,11 +148,11 @@ module.exports = () => {
     res.render("register", templateVars);
   });
 
-  router.post("/orders", (req, res) => {
-    sendSms(req.body.order);
-    console.log(req.body);
-    res.redirect("/orders");
-  });
+  // router.post("/orders", (req, res) => {
+  //   sendSms(req.body.order);
+  //   console.log(req.body);
+  //   res.redirect("/orders");
+  // });
 
   router.post("/sms", (req, res) => {
     const twiml = new MessagingResponse();

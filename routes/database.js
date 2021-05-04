@@ -70,7 +70,7 @@ exports.updateOrderStatus = updateOrderStatus;
 
 const updateOrderSubmission = function(dataArray) {
   let array = [];
-  for (let i=1; i<dataArray.lenght; i++) {
+  for (let i=1; i<dataArray.length; i++) {
     const queryString = `
     UPDATE order_submissions
     SET quantity = $3
