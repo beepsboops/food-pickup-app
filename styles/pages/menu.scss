@@ -1,18 +1,21 @@
-.card {
-  display: flex;
-  outline: none;
-  width: 25%;
-  height: 170px;
-  flex-wrap: wrap;
-}
+.menu-container {
 
-.card img {
-  margin-left: 100px;
-}
+  .card {
+    display: flex;
+    outline: none;
+    width: 25%;
+    height: 170px;
+    flex-wrap: wrap;
+  }
 
-.btn {
-  height: 40px;
-  width: 100px;
-}
+  .card img {
+    margin-left: 100px;
+  }
 
+  .btn {
+    height: 40px;
+    width: 100px;
+  }
+
+}
 
