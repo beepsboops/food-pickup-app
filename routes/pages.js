@@ -4,8 +4,8 @@ const router  = express.Router();
 const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 
-const { getMenuItems, getItemById } = require('./menuQuery');
-const { sendSms } = require("../send_sms");
+const { getMenuItems, getItemById, addOrderItem, getCurrentOrder} = require('./menuQuery');
+// const { sendSms } = require("../send_sms");
 // const bodyParser = require("body-parser");
 // router.use(bodyParser.urlencoded({ extended: true }));
 const {
@@ -50,7 +50,8 @@ module.exports = () => {
     getMenuItems()
     .then((results) => {
       const templateVars = {
-        results
+        results,
+        displayName: req.cookies.displayName,
       }
       res.render('menu', templateVars)
     })
@@ -67,9 +68,9 @@ module.exports = () => {
   router.get("/menu/:item_id", (req, res) => {
     let id = req.params.item_id;
     getItemById(id)
-    .then((results) => {
+    .then((result) => {
       const templateVars = {
-        results
+        result
       }
       res.render('menu_item', templateVars)
     })
@@ -80,8 +81,19 @@ module.exports = () => {
 
   //post menu item to order
   router.post("/menu/:item_id", (req, res) => {
-    console.log(orderItem(id))
-    res.redirect('/order_submit')
+    let itemId = req.params.item_id
+    let quantity = req.body.quantity
+    //hard coding user id
+    getCurrentOrder(1)
+      .then((order_id) => {
+        console.log("current order:", order_id)
+        return addOrderItem(order_id, itemId, quantity)
+      })
+      .then(() => res.redirect('/menu'))
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json(err)
+    })
   });
 
   // temp order ID get
@@ -130,11 +142,11 @@ module.exports = () => {
     res.render("register", templateVars);
   });
 
-  router.post("/orders", (req, res) => {
-    sendSms(req.body.order);
-    console.log(req.body);
-    res.redirect("/orders");
-  });
+  // router.post("/orders", (req, res) => {
+  //   sendSms(req.body.order);
+  //   console.log(req.body);
+  //   res.redirect("/orders");
+  // });
 
   return router;
 };

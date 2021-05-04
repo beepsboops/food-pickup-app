@@ -33,13 +33,12 @@
       <h1>I am the menu item page</h1>
 
 
-      <form method="POST" action="/order_submit">
-        <img src= "<%= results[0].large_photo %>" width="auto" height="300px">
-        <h4><%= results[0].name %></h4>
-        <p><%= results[0].description %></p>
-        <p><%= (results[0].price/100).toFixed(2) %></p>
-        <label>Select Quantity:</label>
-        <input type="number" min="1">
+      <form class="item-submission" method="POST" action="/menu/<%= result.id %>">
+        <img src= "<%= result.large_photo %>" width="auto" height="300px">
+        <h4><%= result.name %></h4>
+        <p><%= result.description %></p>
+        <p><%= (result.price/100).toFixed(2) %></p>
+        <label>Select Quantity:<input name="quantity" class="item-quantity" type="number" min="1"></label>
         <input type="submit" value="Add to Cart">
       </form>
     </main>
