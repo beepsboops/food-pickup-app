@@ -68,7 +68,7 @@ module.exports = () => {
 
   //post menu item to order
   router.post("/menu/:item_id", (req, res) => {
-    console.log(orderItem(id))
+
     res.redirect('/order_submit')
   });
 

@@ -36,7 +36,7 @@ const pool = new Pool({
 
 
 const orderItem = (id) => {
-  const itemQuery = `INSERT INTO order_submissions(item_id, quantity) VALUES (${id}, )`
+  const itemQuery = `INSERT INTO order_submissions(item_id, quantity) VALUES ($1, $2)`, [item_id, quantity]
 
   return pool.query(itemQuery)
     .then((result) => {return result.rows})
