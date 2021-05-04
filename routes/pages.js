@@ -4,8 +4,16 @@ const router  = express.Router();
 const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 
-const { getUserWithEmail, getOrderData } = require ('./database');
 const { getMenuItems, getItemById } = require('./menuQuery');
+const { sendSms } = require("../send_sms");
+// const bodyParser = require("body-parser");
+// router.use(bodyParser.urlencoded({ extended: true }));
+const {
+  getUserWithEmail,
+  getOrderData,
+  updateOrderSubmission,
+  updateOrderStatus,
+} = require("./database");
 
 module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
@@ -17,18 +25,17 @@ module.exports = () => {
     res.render('login')
   });
 
-
   //Login Post Method
   router.post("/login", (req, res) => {
     const {email, password} = req.body;
     getUserWithEmail(email)
     .then((results) => {
       if (results.password === password) {
-        res.cookie('cookieName', 'cheese')
         const templateVars = {
           displayName: results.name,
           phone: results.phone
-        }
+        };
+        res.cookie("displayName", templateVars.displayName);
         return res.render("home", templateVars);
       } else {
         return res.redirect("/login");
@@ -50,6 +57,11 @@ module.exports = () => {
     .catch((err) => {
       console.log(err.message)
     });
+    //My code above had been deleted in the last commit to add in the displayname cookie below. Let me know your thoughts!
+    // const templateVars = {
+    //   displayName: req.cookies.displayName,
+    // };
+    // res.render("menu", templateVars);
   });
 
   router.get("/menu/:item_id", (req, res) => {
@@ -72,20 +84,13 @@ module.exports = () => {
     res.redirect('/order_submit')
   });
 
-  router.get("/orders", (req, res) => {
-    res.render('order_history')
-  });
-
-  router.get("/order_history/:order_id", (req, res) => {
-    res.render('orders/:order_id')
-  });
-
   // temp order ID get
   router.get("/order_submit", (req, res) => {
     getOrderData()
     .then((results) => {
       const templateVars = {
-        results
+        results,
+        displayName: req.cookies.displayName,
       }
       res.render('order_submit', templateVars)
     })
@@ -95,24 +100,41 @@ module.exports = () => {
   });
 
   router.post("/order_submit", (req, res) => {
-    // update database here??
-    console.log('working', JSON.parse(req.body.finalArray));
-    // write and implment helper function
-    res.render('order_status');
-  })
+    let data = req.body.orderSubmissionData;
+    updateOrderSubmission(data).then(() =>
+      updateOrderStatus(data).then(res.send("Order Status Updated"))
+    );
+
+    // Promise.all([updateOrderSubmission(data), confirmOrder(data)])
+    //   .then(res.send("Order Status Updated")))
+  });
 
   router.get("/order_status", (req, res) => {
-    res.render('order_status')
+    const templateVars = {
+      displayName: req.cookies.displayName,
+    };
+    res.render("order_status", templateVars);
   });
 
   router.get("/profile", (req, res) => {
-    res.render('profile')
+    const templateVars = {
+      displayName: req.cookies.displayName,
+    };
+    res.render("profile", templateVars);
   });
 
   router.get("/register", (req, res) => {
-    res.render('register')
+    const templateVars = {
+      displayName: req.cookies.displayName,
+    };
+    res.render("register", templateVars);
   });
 
+  router.post("/orders", (req, res) => {
+    sendSms(req.body.order);
+    console.log(req.body);
+    res.redirect("/orders");
+  });
 
   return router;
 };
