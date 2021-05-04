@@ -64,25 +64,21 @@ module.exports = () => {
       .catch((err) => {
         console.log(err.message);
       });
-    //My code above had been deleted in the last commit to add in the displayname cookie below. Let me know your thoughts!
-    // const templateVars = {
-    //   displayName: req.cookies.displayName,
-    // };
-    // res.render("menu", templateVars);
   });
 
   router.get("/menu/:item_id", (req, res) => {
     let id = req.params.item_id;
     getItemById(id)
-      .then((result) => {
-        const templateVars = {
-          result,
-        };
-        res.render("menu_item", templateVars);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    .then((results) => {
+      const templateVars = {
+        results,
+        displayName: req.cookies.displayName
+      }
+      res.render('menu_item', templateVars)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
   });
 
   //post menu item to order
@@ -122,9 +118,6 @@ module.exports = () => {
     updateOrderSubmission(data).then(() =>
       updateOrderStatus(data).then(res.send("Order Status Updated"))
     );
-
-    // Promise.all([updateOrderSubmission(data), confirmOrder(data)])
-    //   .then(res.send("Order Status Updated")))
   });
 
   router.get("/order_status", (req, res) => {

@@ -8,17 +8,14 @@ const pool = new Pool({
   database: 'midterm'
 });
 
-
-
-
-  const getMenuItems = () => {
-     const menuQuery = `SELECT * FROM items`;
+const getMenuItems = () => {
+  const menuQuery = `SELECT * FROM items`;
 
      return pool.query(menuQuery)
        .then((result) => {return result.rows});
    };
 
- exports.getMenuItems = getMenuItems;
+exports.getMenuItems = getMenuItems;
 
 
 
@@ -29,7 +26,7 @@ const pool = new Pool({
        .then((result) => {return result.rows[0]});
    };
 
-   exports.getItemById = getItemById;
+exports.getItemById = getItemById;
 
 
 //Add new item to cart
