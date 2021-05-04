@@ -53,11 +53,9 @@ module.exports = () => {
   });
 
   router.get("/menu/:item_id", (req, res) => {
-    console.log(req.params.item_id);
     let id = req.params.item_id;
     getItemById(id)
     .then((results) => {
-      console.log('results:', results)
       const templateVars = {
         results
       }
@@ -66,6 +64,12 @@ module.exports = () => {
     .catch((err) => {
       console.log(err.message)
     });
+  });
+
+  //post menu item to order
+  router.post("/menu/:item_id", (req, res) => {
+    console.log(orderItem(id))
+    res.redirect('/order_submit')
   });
 
   router.get("/orders", (req, res) => {

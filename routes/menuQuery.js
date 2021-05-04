@@ -19,8 +19,9 @@ const pool = new Pool({
        .catch((err) => {console.log(err.message)});
    };
 
-
  exports.getMenuItems = getMenuItems;
+
+
 
  const getItemById = (id) => {
   const menuQuery = `SELECT * FROM items WHERE id = ${id}`;
@@ -31,3 +32,19 @@ const pool = new Pool({
    };
 
    exports.getItemById = getItemById;
+
+
+
+const orderItem = (id) => {
+  const itemQuery = `INSERT INTO order_submissions(item_id, quantity) VALUES (${id}, )`
+
+  return pool.query(itemQuery)
+    .then((result) => {return result.rows})
+    .catch((err) => {console.log(err.message)});
+};
+
+exports.orderItem = orderItem;
+
+
+
+
