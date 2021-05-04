@@ -39,14 +39,13 @@
   <body>
     <%- include('partials/_header') %>
     <main class='menu-item-container card'>
-      <form method="POST" action="/menu/<%= result.id %>">
-        <img src= "<%= results[0].large_photo %>">
+      <form class="item-submission" method="POST" action="/menu/<%= results.id %>">
+        <img src= "<%= results.large_photo %>" width='auto' height='300px'>
         <div class="card-body">
           <h4 class="card-title"><%= results.name %></h4>
           <p class="card-text"><%= results.description %></p>
           <p class="card-text"><%= (results.price/100).toFixed(2) %></p>
-          <label>Select Quantity:</label>
-          <input type="number" min="1">
+          <label>Select Quantity:<input name="quantity" class="item-quantity" type="number" min="1"></label>
           <input type="submit" value="Add to Cart">
         </div>
       </form>
