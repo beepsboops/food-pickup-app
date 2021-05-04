@@ -21,7 +21,9 @@
         <a href="/profile">View Profile</a>
         <a href="/menu">View Menu</a>
         <a href="/order_submit">View Cart</a>
-        <button type="button" class="btn btn-dark">Sign Out</button>
+        <form action="/logout" method="POST" class="logout-form">
+          <button type="button" class="btn btn-dark" id="logout-button">Sign Out</button>
+        </form>
       </div>
     <% } %>
   </nav>

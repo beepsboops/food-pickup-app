@@ -114,7 +114,6 @@ module.exports = () => {
 
   router.post("/order_submit", (req, res) => {
     let data = req.body.orderSubmissionData;
-    console.log(data);
     updateOrderSubmission(data).then(() =>
       updateOrderStatus(data).then(res.send("Order Status Updated"))
     );
@@ -156,11 +155,14 @@ module.exports = () => {
     res.end(twiml.toString());
   });
 
+
+  // needs to be fixed kldfgjfldkgjdflkg
   router.post("/logout", (req, res) => {
+    console.log('working');
     res.clearCookie('displayName');
     res.clearCookie('userID');
     return res.redirect("/");
-  })
+  });
 
   return router;
 };
