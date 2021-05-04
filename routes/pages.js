@@ -92,12 +92,10 @@ module.exports = () => {
     //hard coding user id
     getCurrentOrder(1)
       .then((order_id) => {
-        console.log("current order:", order_id);
         return addOrderItem(order_id, itemId, quantity);
       })
       .then(() => res.redirect("/menu"))
       .catch((err) => {
-        console.log(err.message);
         res.status(500).json(err);
       });
   });
