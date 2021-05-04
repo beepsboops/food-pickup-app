@@ -5,7 +5,7 @@ const pool = new Pool({
   user: 'vagrant',
   password: '123',
   host: 'localhost',
-  database: 'db'
+  database: 'midterm'
 });
 
 
@@ -19,5 +19,32 @@ const pool = new Pool({
        .catch((err) => {console.log(err.message)});
    };
 
-
  exports.getMenuItems = getMenuItems;
+
+
+
+ const getItemById = (id) => {
+  const menuQuery = `SELECT * FROM items WHERE id = ${id}`;
+
+  return pool.query(menuQuery)
+       .then((result) => {return result.rows})
+       .catch((err) => {console.log(err.message)});
+   };
+
+   exports.getItemById = getItemById;
+
+
+
+const orderItem = (id) => {
+  const itemQuery = `INSERT INTO order_submissions(item_id, quantity) VALUES ($1, $2)`, [item_id, quantity]
+
+  return pool.query(itemQuery)
+    .then((result) => {return result.rows})
+    .catch((err) => {console.log(err.message)});
+};
+
+exports.orderItem = orderItem;
+
+
+
+

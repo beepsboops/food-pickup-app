@@ -1,113 +1,118 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express');
+const router  = express.Router();
 
-const cookieParser = require("cookie-parser");
+const cookieParser = require('cookie-parser')
 router.use(cookieParser());
 
-const { getMenuItems } = require("./menuQuery");
-const { sendSms } = require("../send_sms");
-// const bodyParser = require("body-parser");
-// router.use(bodyParser.urlencoded({ extended: true }));
-const {
-  getUserWithEmail,
-  getOrderData,
-  updateOrderSubmission,
-  updateOrderStatus,
-} = require("./database");
+const { getUserWithEmail, getOrderData } = require ('./database');
+const { getMenuItems, getItemById } = require('./menuQuery');
 
 module.exports = () => {
   // general get methods/templates, please delete or rewrite if neccessary
   router.get("/errors", (req, res) => {
-    res.render("error");
+    res.render('error')
   });
 
   router.get("/login", (req, res) => {
-    res.render("login");
+    res.render('login')
   });
+
 
   //Login Post Method
   router.post("/login", (req, res) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     getUserWithEmail(email)
-      .then((results) => {
-        if (results.password === password) {
-          const templateVars = {
-            displayName: results.name,
-            phone: results.phone,
-          };
-          res.cookie("displayName", templateVars.displayName);
-          return res.render("home", templateVars);
-        } else {
-          return res.redirect("/login");
+    .then((results) => {
+      if (results.password === password) {
+        res.cookie('cookieName', 'cheese')
+        const templateVars = {
+          displayName: results.name,
+          phone: results.phone
         }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+        return res.render("home", templateVars);
+      } else {
+        return res.redirect("/login");
+      }
+    })
+    .catch(e => {
+      console.error(e);
+    });
   });
 
   router.get("/menu", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("menu", templateVars);
+    getMenuItems()
+    .then((results) => {
+      const templateVars = {
+        results
+      }
+      res.render('menu', templateVars)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
   });
 
   router.get("/menu/:item_id", (req, res) => {
-    res.render("menu");
+    let id = req.params.item_id;
+    getItemById(id)
+    .then((results) => {
+      const templateVars = {
+        results
+      }
+      res.render('menu_item', templateVars)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
+  });
+
+  //post menu item to order
+  router.post("/menu/:item_id", (req, res) => {
+    console.log(orderItem(id))
+    res.redirect('/order_submit')
+  });
+
+  router.get("/orders", (req, res) => {
+    res.render('order_history')
+  });
+
+  router.get("/order_history/:order_id", (req, res) => {
+    res.render('orders/:order_id')
   });
 
   // temp order ID get
   router.get("/order_submit", (req, res) => {
     getOrderData()
-      .then((results) => {
-        const templateVars = {
-          results,
-          displayName: req.cookies.displayName,
-        };
-        res.render("order_submit", templateVars);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    .then((results) => {
+      const templateVars = {
+        results
+      }
+      res.render('order_submit', templateVars)
+    })
+    .catch(e => {
+      console.error(e);
+    });
   });
 
   router.post("/order_submit", (req, res) => {
-    let data = req.body.orderSubmissionData;
-    updateOrderSubmission(data).then(() =>
-      updateOrderStatus(data).then(res.send("Order Status Updated"))
-    );
-
-    // Promise.all([updateOrderSubmission(data), confirmOrder(data)])
-    //   .then(res.send("Order Status Updated")))
-  });
+    // update database here??
+    console.log('working', JSON.parse(req.body.finalArray));
+    // write and implment helper function
+    res.render('order_status');
+  })
 
   router.get("/order_status", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("order_status", templateVars);
+    res.render('order_status')
   });
 
   router.get("/profile", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("profile", templateVars);
+    res.render('profile')
   });
 
   router.get("/register", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("register", templateVars);
+    res.render('register')
   });
 
-  router.post("/orders", (req, res) => {
-    sendSms(req.body.order);
-    console.log(req.body);
-    res.redirect("/orders");
-  });
 
   return router;
 };
