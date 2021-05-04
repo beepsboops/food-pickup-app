@@ -1,0 +1,30 @@
+.order-submit-container {
+
+  .quantity-counter-container {
+    width: 30%;
+
+    input {
+      width: 15%;
+      text-align: center;
+    }
+  };
+
+  .checkout-summary {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .total-price{
+      display: flex;
+
+      h5 {
+        padding-left: 2em;
+      }
+    }
+
+    button {
+      width: 50%;
+    }
+  }
+}
