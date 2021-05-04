@@ -2,7 +2,7 @@
 // Your Account Sid and Auth Token from twilio.com/console
 
 const {
-  ModelBuildPage,
+  ModelBuildPage
 } = require("twilio/lib/rest/autopilot/v1/assistant/modelBuild");
 
 // and set the environment variables. See http://twil.io/secure

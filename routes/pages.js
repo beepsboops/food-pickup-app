@@ -50,7 +50,8 @@ module.exports = () => {
     getMenuItems()
     .then((results) => {
       const templateVars = {
-        results
+        results,
+        displayName: req.cookies.displayName
       }
       res.render('menu', templateVars)
     })
@@ -69,7 +70,8 @@ module.exports = () => {
     getItemById(id)
     .then((results) => {
       const templateVars = {
-        results
+        results,
+        displayName: req.cookies.displayName
       }
       res.render('menu_item', templateVars)
     })
@@ -80,8 +82,8 @@ module.exports = () => {
 
   //post menu item to order
   router.post("/menu/:item_id", (req, res) => {
-    console.log(orderItem(id))
-    res.redirect('/order_submit')
+    // console.log(orderItem(id))
+    res.redirect('/menu')
   });
 
   // temp order ID get
@@ -90,7 +92,7 @@ module.exports = () => {
     .then((results) => {
       const templateVars = {
         results,
-        displayName: req.cookies.displayName,
+        displayName: req.cookies.displayName
       }
       res.render('order_submit', templateVars)
     })
@@ -104,9 +106,6 @@ module.exports = () => {
     updateOrderSubmission(data).then(() =>
       updateOrderStatus(data).then(res.send("Order Status Updated"))
     );
-
-    // Promise.all([updateOrderSubmission(data), confirmOrder(data)])
-    //   .then(res.send("Order Status Updated")))
   });
 
   router.get("/order_status", (req, res) => {

@@ -1,21 +1,39 @@
 .menu-container {
+  width: 100%;
+  padding: 1em 2em;
 
-  .card {
+  .menu-items-container {
     display: flex;
-    outline: none;
-    width: 25%;
-    height: 170px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .card img {
-    margin-left: 100px;
+  h1 {
+    text-align: center;
+    margin: 2em 0;
+    font-family: "Quattrocento", sans-serif;
+    font-weight: 600;
+  }
+
+  .card {
+    width: 750px;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    margin: 10px;
   }
 
   .btn {
     height: 40px;
     width: 100px;
   }
+
+  img {
+    height: 300px;
+    width: 200px;
+    object-fit: cover;
+    padding: 10px;
+  }
+
 
 }
 
