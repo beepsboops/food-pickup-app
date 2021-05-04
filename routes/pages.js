@@ -6,6 +6,7 @@ router.use(cookieParser());
 
 const { getMenuItems } = require("./menuQuery");
 const { sendSms } = require("../send_sms");
+const MessagingResponse = require("twilio").twiml.MessagingResponse;
 // const bodyParser = require("body-parser");
 // router.use(bodyParser.urlencoded({ extended: true }));
 const {
@@ -107,6 +108,15 @@ module.exports = () => {
     sendSms(req.body.order);
     console.log(req.body);
     res.redirect("/orders");
+  });
+
+  router.post("/sms", (req, res) => {
+    const twiml = new MessagingResponse();
+
+    twiml.message("The Robots are coming! Head for the hills!");
+
+    res.writeHead(200, { "Content-Type": "text/xml" });
+    res.end(twiml.toString());
   });
 
   return router;
