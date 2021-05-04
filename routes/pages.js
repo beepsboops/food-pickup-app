@@ -119,6 +119,7 @@ module.exports = () => {
 
   router.post("/order_submit", (req, res) => {
     let data = req.body.orderSubmissionData;
+    console.log("router.post | order_submit:", data);
     updateOrderSubmission(data).then(() =>
       updateOrderStatus(data).then(res.send("Order Status Updated"))
     );
