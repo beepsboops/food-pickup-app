@@ -1,4 +1,29 @@
 .home-container {
   width: 100%;
-  padding: 1em 2em;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+
+  .home-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  h4 {
+    font-size: 48px;
+    font-family: "Quattrocento", sans-serif;
+  }
+
+  p {
+    font-size: 32px;
+    font-family: "Lora", sans-serif;
+  }
+
+  a {
+    font-size: 28px;
+    font-family: "Lora", sans-serif;
+  }
 }
