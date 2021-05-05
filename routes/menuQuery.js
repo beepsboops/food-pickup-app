@@ -30,15 +30,20 @@ exports.getItemById = getItemById;
 //Add new item to cart
 const addOrderItem = (order_id, item_id, quantity) => {
   const itemQuery = `INSERT INTO order_submissions(order_id, item_id, quantity)
-  VALUES ($1, $2, $3)`
+  VALUES ($1, $2, $3)
+  ON CONFLICT (order_id, item_id)
+  DO UPDATE set quantity = order_submissions.quantity + EXCLUDED.quantity;`
+
   const values = [order_id, item_id, quantity];
 
-  return pool.query(itemQuery, values)
-    .then((result) => {return result.rows});
+        return pool.query(itemQuery, values)
+          .then((result) => {return result.rows})
+          .catch((err) => {
+            console.log(err);
+          });
 };
 
 exports.addOrderItem = addOrderItem;
-
 
 
 const getCurrentOrder = (user_id) => {
@@ -50,12 +55,12 @@ const getCurrentOrder = (user_id) => {
     .then((result) => {
       if (result.rows.length > 0) {
         return result.rows[0].id
-      } else {
-        return pool.query(insertQuery, [user_id, 'Started'])
-        .then((results) =>
-          results.rows[0].id
-        )
       }
+
+  return pool.query(insertQuery, [user_id, 'Started'])
+      .then((results) =>
+        results.rows[0].id
+      )
     })
     .catch((err) => {
       console.log(err.message);
@@ -63,6 +68,8 @@ const getCurrentOrder = (user_id) => {
 };
 
 exports.getCurrentOrder = getCurrentOrder;
+
+
 
 
 
