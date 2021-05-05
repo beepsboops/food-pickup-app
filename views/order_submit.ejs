@@ -40,9 +40,12 @@
     <%- include('partials/_header') %>
     <main class='order-submit-container card'>
       <h3 class="card-header">Order Summary</h3>
-      <% if(results.length === 0){ %>
-        <h1>Oh wow, there's nothing here!</h1>
-        <a href="/menu">View Menu</a>
+      <% if(results.length === 0 || typeof results === 'undefined'){ %>
+        <div class="card-body">
+          <h5 class="card-body"">Oh wow, there's nothing here!</h5>
+          <p class="card-body">Would you like to checkout the menu?</p>
+          <a href="/menu" class="btn btn-dark button-up">View Menu</a>
+        </div>
       <% } else{ %>
         <div class="card-body">
           <h4 class="card-title">Name: <%= results[0].user_name %></h4>
