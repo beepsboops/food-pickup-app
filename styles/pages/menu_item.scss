@@ -1,8 +1,53 @@
 .menu-item-container {
+  width: 100%;
+
+
+  .item-submission {
+
+    padding: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+  }
+
   img {
     height: 600px;
     width: 800px;
     object-fit: cover;
     padding: 10px;
   }
+
+  .card-title {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 60px;
+  }
+
+  hr {
+    border-top: 3px solid black;
+    width: 20%;
+  }
+
+  .card-price {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .add-to-cart {
+    margin-top: 150px;
+  }
+
+  .item-quantity {
+    width: 10%;
+    height: 38px;
+    outline: none;
+    border: 2px solid #DEDEDE;
+    border-radius: 4px;
+    margin-left: 5px;
+  }
+
+  label {
+    padding-right: 2px;
+  }
+
 }

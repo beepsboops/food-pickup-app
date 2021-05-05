@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 const { options } = require('pg/lib/defaults');
-const DateTime = require('date-and-time');
+// const DateTime = require('date-and-time');
 
 const pool = new Pool({
   user: 'vagrant',

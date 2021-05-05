@@ -86,8 +86,7 @@ module.exports = () => {
   router.post("/menu/:item_id", (req, res) => {
     let itemId = req.params.item_id;
     let quantity = req.body.quantity;
-    //hard coding user id
-    getCurrentOrder(req.cookies.userID) // <- gives you user_id, set to the cookie for simplicity
+    getCurrentOrder(req.cookies.userID)
       .then((order_id) => {
         return addOrderItem(order_id, itemId, quantity);
       })
