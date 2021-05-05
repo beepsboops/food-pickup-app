@@ -55,36 +55,34 @@
           <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
           <h5><%= event.toLocaleDateString(undefined, options) %></h5>
           <form class="order-submission-data" method="POST">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Item #</th>
-                <th scope="col">Item Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody class='table-body'>
+          <div class="orders-table">
+            <div class="table-header-row">
+              <div scope="col" class="table-header item-col">Item #</div>
+              <div scope="col" class="table-header name-col">Item Name</div>
+              <div scope="col" class="table-header price-col">Price</div>
+              <div scope="col" class="table-header quantity-col">Quantity</div>
+              <div scope="col" class="table-header subtotal-col">Subtotal</div>
+            </div>
+            <div class='table-body'>
               <% let total = 0 %>
               <% for(let i=0; i<results.length; i++) { %>
-                <tr class='order-data-row'>
-                  <td class="order-submission-id" id="item-id-<%= i %>"><%= results[i].order_submission_id %></td>
-                  <td class="item-name" id="item-name-<%= i %>"><%= results[i].item_name %></td>
-                  <td class="item-price">$<%= (results[i].price / 100).toFixed(2) %></td>
-                  <td class="quantity-counter-container">
+                <div class='order-data-row'>
+                  <div class="order-submission-id" id="item-id-<%= i %>"><%= results[i].order_submission_id %></div>
+                  <div class="item-name" id="item-name-<%= i %>"><%= results[i].item_name %></div>
+                  <div class="item-price">$<%= (results[i].price / 100).toFixed(2) %></div>
+                  <div class="quantity-counter-container">
                     <div class="quantity-counter">
-                      <button type="button" class="btn btn-dark button-down" id="button-down-<%= i %>">-</button>
+                      <button type="button" class="btn btn btn-outline-dark btn-sm button-down" id="button-down-<%= i %>"><i class="fas fa-minus"></i></button>
                     <input type="text" class='quantity-value' value='<%= results[i].quantity %>' id='quantity-value-<%= i %>'>
-                    <button type="button" class="btn btn-dark button-up" id="button-up-<%= i %>">+</button>
+                    <button type="button" class="btn btn btn-outline-dark btn-sm button-up" id="button-up-<%= i %>"><i class="fas fa-plus"></i></button>
                     </div>
-                  </td>
-                  <td class="item-subtotal">$<%= (results[i].price / 100).toFixed(2) * results[i].quantity%></td>
-                </tr>
+                  </div>
+                  <div class="item-subtotal">$<%= (results[i].price / 100).toFixed(2) * results[i].quantity%></div>
+                </div>
                 <% total += (results[i].price / 100).toFixed(2) * results[i].quantity %>
               <% } %>
-            </tbody>
-          </table>
+            </div>
+          </div>
           <div class="checkout-summary">
             <div class="total-price">
               <h5>Total Price</h5>
