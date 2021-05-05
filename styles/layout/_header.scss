@@ -1,14 +1,9 @@
 .header-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 1em 1em;
-  background-color: #E5FFDE;
+  padding: 1rem 1rem;
+  background-color: white;
 
-  h3 {
-    padding-left: 0.5em;
-  }
 
   #body-overlay {
     width: 100vw;
@@ -31,7 +26,7 @@
     height: 100%;
     padding: .5rem 1rem;
     box-shadow: 0 6px 12px rgba(107, 82, 82, 0.3);
-    background-color: #E5FFDE;;
+    background-color: black;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -50,67 +45,90 @@
       }
     }
 
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: baseline;
+
+    h3 {
+      font-size: 40px;
+      font-family: "Cinzel", sans-serif;
+      font-weight: 600;
+      border-bottom: 4px black solid;
+    }
+  }
+
+  .checkout-button {
+    width: 80px;
+  }
+
   .side-bar-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 2em;
+    padding-top: 2rem;
+    color: white;
 
     .profile-display {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      background-color: black;
-      color: white;
-      width: 60%;
-      padding: 8px 10px;
-      border-radius: 25px;
-      margin-bottom: 0.75em;
+      background-color: white;
+      color: black;
+      width: 90%;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 1rem;
 
       .welcome-name {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0 10px;
+      }
+
+      i {
+        margin: 0 10px;
       }
 
     }
+    span {
+      font-size: 32px;
+      color: black;
+      font-family: "Quattrocento", sans-serif;
+    }
 
     a {
-      color: black;
-      margin-bottom: 0.75em;
-
+      color: white;
+      margin: 1rem 0;
+      font-size: 24px;
+      font-family: "Quattrocento", sans-serif;
     }
 
     a:link, a:visited, a:hover, a:active {
       text-decoration: none;
     }
+
+
+    #login-button {
+      width: 55%;
+      margin: 1rem 0;
+      color: black;
+      font-size: 28px;
+    }
+
+    .logout-form {
+      width: 50%;
+      margin: 1rem 0;
+    }
+
+    #logout-button {
+      width: 100%;
+      color: black;
+      font-size: 24px;
+      font-family: "Quattrocento", sans-serif;
+    }
   }
 
-  #login-button {
-    width: 40%;
-    margin-bottom: 0.75em;
-  }
-
-  a {
-    color: black;
-    margin-bottom: 0.75em;
-  }
-
-  a:link, a:visited, a:hover, a:active {
-    text-decoration: none;
-  }
-
-  .checkout-button {
-    width: 150px;
-    float: right;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-  }
-
-  #login-button {
-    color: white;
-  }
 }

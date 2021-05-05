@@ -4,33 +4,36 @@
     <!-- check if cookie??? -->
     <% if(typeof displayName == 'undefined') { %>
       <div class="side-bar-content">
-        <a href="/login" class="btn btn-dark" id="login-button">Sign In</a>
-        <a href="/menu">View Menu</a>
+        <a href="/login" class="btn btn-light" id="login-button">Sign In</a>
+        <a href="/menu">Menu</a>
         <a href="/register">Register</a>
+        <a href="/">Home</a>
       </div>
     <% } else { %>
       <div class="side-bar-content">
         <div class="profile-display">
-          <i class="fas fa-user-astronaut fa-4x"></i>
+          <i class="fas fa-user-astronaut fa-6x"></i>
           <div class="welcome-name">
             <span>Hello!</span>
             <!-- grab user name here -->
             <span><%= displayName %></span>
           </div>
         </div>
-        <a href="/profile">View Profile</a>
-        <a href="/menu">View Menu</a>
-        <a href="/order_submit">View Cart</a>
+        <a href="/profile">Profile</a>
+        <a href="/profile">Order History</a>
+        <a href="/menu">Menu</a>
+        <a href="/order_submit">Cart</a>
+        <a href="/">Home</a>
         <form action="/logout" method="POST" class="logout-form">
-          <button type="button" class="btn btn-dark" id="logout-button">Sign Out</button>
+          <button type="button" class="btn btn-light" id="logout-button">Sign Out</button>
         </form>
       </div>
     <% } %>
   </nav>
-  <div class="nav-logo">
-    <button id="open-menu"><i class="fas fa-hamburger fa-2x"></i></button>
-    <h3>Order Co.</h3>
+  <div class="header-content">
+    <button id="open-menu" class="btn btn-outline-dark"><i class="fas fa-hamburger fa-3x"></i></button>
+    <h3>Lighthouse Full Stack Burgers</h3>
+    <a href="/order_submit" class="btn btn-outline-dark checkout-button"><i class="fas fa-shopping-cart fa-3x"></i></a>
   </div>
-  <a href="/order_submit" class="btn btn-warning checkout-button">View Cart</a>
 </header>
 
