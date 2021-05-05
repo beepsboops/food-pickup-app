@@ -11,20 +11,18 @@ const pool = new Pool({
 const getMenuItems = () => {
   const menuQuery = `SELECT * FROM items`;
 
-     return pool.query(menuQuery)
-       .then((result) => {return result.rows});
-   };
+  return pool.query(menuQuery)
+    .then((result) => {return result.rows});
+};
 
 exports.getMenuItems = getMenuItems;
 
-
-
- const getItemById = (id) => {
+const getItemById = (id) => {
   const menuQuery = `SELECT * FROM items WHERE id = $1`;
 
   return pool.query(menuQuery, [id])
-       .then((result) => {return result.rows[0]});
-   };
+    .then((result) => {return result.rows[0]});
+};
 
 exports.getItemById = getItemById;
 
