@@ -40,6 +40,9 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 const pageRoutes = require("./routes/pages");
+const orderRoutes = require("./routes/orders");
+// const menuRoutes = require("./routes/menu");
+// const smsRoutes = require("./routes/sms");
 
 
 // Mount all resource routes
@@ -48,6 +51,10 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 app.use("/", pageRoutes(db));
+app.use("/orders", orderRoutes(db));
+// app.use("/menu", menuRoutes(db));
+// app.use("/sms", smsRoutes(db));
+
 
 
 // Home page

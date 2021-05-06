@@ -1,0 +1,51 @@
+.login-container {
+  width: 100%;
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lora", sans-serif;
+  font-size: 24px;
+
+  h4 {
+    font-family: "Cinzel", sans-serif;
+    font-size: 38px;
+    margin-top: -8rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid black;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: black;
+    font-weight: 600;
+  }
+
+  a:hover {
+    color: red;
+  }
+
+  a:link, a:visited, a:active {
+    text-decoration: none;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+
+    input {
+      margin: 0.5rem 0;
+    }
+
+    button {
+      width: 50%;
+      margin: 1rem 0;
+    }
+  }
+}

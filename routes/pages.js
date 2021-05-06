@@ -137,19 +137,6 @@ module.exports = () => {
     res.render("order_status", templateVars);
   });
 
-  router.get("/profile", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("profile", templateVars);
-  });
-
-  router.get("/register", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("register", templateVars);
-  });
 
   // router.post("/orders", (req, res) => {
   //   smsOrderReceived(req.body.order);
@@ -164,7 +151,6 @@ module.exports = () => {
     // res.render("order")
   });
 
-  // needs to be fixed kldfgjfldkgjdflkg
   router.post("/logout", (req, res) => {
     console.log("working");
     res.clearCookie("displayName");
