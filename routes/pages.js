@@ -4,8 +4,8 @@ const router = express.Router();
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-const { sendSms } = require("../send_sms");
-const MessagingResponse = require("twilio").twiml.MessagingResponse;
+const { sendSms, smsOrderInfo, smsOrderReply } = require("../send_sms");
+
 const {
   getMenuItems,
   getItemById,
@@ -69,16 +69,16 @@ module.exports = () => {
   router.get("/menu/:item_id", (req, res) => {
     let id = req.params.item_id;
     getItemById(id)
-    .then((results) => {
-      const templateVars = {
-        results,
-        displayName: req.cookies.displayName
-      }
-      res.render('menu_item', templateVars)
-    })
-    .catch((err) => {
-      console.log(err.message)
-    });
+      .then((results) => {
+        const templateVars = {
+          results,
+          displayName: req.cookies.displayName,
+        };
+        res.render("menu_item", templateVars);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   });
 
   //post menu item to order
@@ -113,9 +113,13 @@ module.exports = () => {
 
   router.post("/order_submit", (req, res) => {
     let data = req.body.orderSubmissionData;
-    console.log("router.post | order_submit:", data);
+    let smsData = smsOrderInfo(data);
+    console.log("router.post: data:", data);
+    console.log("router.post: smsData:", data);
     updateOrderSubmission(data).then(() =>
-      updateOrderStatus(data).then(res.send("Order Status Updated"))
+      updateOrderStatus(data)
+        .then(res.send("Order Status Updated"))
+        .then(sendSms(smsData))
     );
   });
 
@@ -140,19 +144,14 @@ module.exports = () => {
     res.render("register", templateVars);
   });
 
-  // router.post("/orders", (req, res) => {
-  //   sendSms(req.body.order);
-  //   console.log(req.body);
-  //   res.redirect("/orders");
-  // });
+  router.post("/orders", (req, res) => {
+    sendSms(req.body.order);
+    console.log(req.body);
+    res.redirect("/orders");
+  });
 
   router.post("/sms", (req, res) => {
-    const twiml = new MessagingResponse();
-
-    twiml.message("The Robots are coming! Head for the hills!");
-
-    res.writeHead(200, { "Content-Type": "text/xml" });
-    res.end(twiml.toString());
+    smsOrderReply(req, res);
   });
 
   return router;
