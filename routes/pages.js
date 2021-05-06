@@ -104,6 +104,7 @@ module.exports = () => {
   router.get("/order_submit", (req, res) => {
     getOrderData(req.cookies.displayName)
       .then((results) => {
+        console.log(results);
         const templateVars = {
           results,
           displayName: req.cookies.displayName,

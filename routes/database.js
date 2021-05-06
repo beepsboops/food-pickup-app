@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 const { options } = require('pg/lib/defaults');
-const DateTime = require('date-and-time');
+//const DateTime = require('date-and-time');
 
 const pool = new Pool({
   user: 'vagrant',
@@ -77,14 +77,21 @@ const updateOrderSubmission = function(dataArray) {
     const queryString = `
     UPDATE order_submissions
     SET quantity = $3
-    WHERE order_id=$1 AND item_id = $2;
+    WHERE order_id=$1 AND id = $2;
     `;
-    const values = [dataArray[0].order_id, dataArray[i].id, dataArray[i].quantity]
+    const values = [Number(dataArray[0].order_id), Number(dataArray[i].id), Number(dataArray[i].quantity)]
 
+    console.log(values);
     array.push(pool.query(queryString, values))
   }
 
   return Promise.all(array)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
 
 };
 
