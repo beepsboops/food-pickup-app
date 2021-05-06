@@ -38,17 +38,17 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main class='order-submit-container card'>
-      <h3 class="card-header">Order Summary</h3>
+    <main class='order-submit-container'>
+      <h3 class="order-submission-header">Order Summary</h3>
       <% if(results.length === 0 || typeof results === 'undefined'){ %>
-        <div class="card-body">
-          <h5 class="card-body"">Oh wow, there's nothing here!</h5>
-          <p class="card-body">Would you like to checkout the menu?</p>
+        <div class="order-submission-body">
+          <h5>Oh wow, there's nothing here!</h5>
+          <p>Would you like to checkout the menu?</p>
           <a href="/menu" class="btn btn-dark button-up">View Menu</a>
         </div>
       <% } else{ %>
-        <div class="card-body">
-          <h4 class="card-title">Name: <%= results[0].user_name %></h4>
+        <div class="order-submission-body">
+          <h4>Name: <%= results[0].user_name %></h4>
           <h5>Phone: <%= results[0].phone %></h5>
           <h5 class='order-id'>Order #<%= results[0].order_id %></h5>
           <% const event = new Date();%>
@@ -88,7 +88,7 @@
               <h5>Total Price</h5>
               <h5 class='total-price-value'>$<%= total %></h5>
             </div>
-            <button type="submit">Confirm Order</button>
+            <button type="submit" class="btn btn btn-outline-dark">Confirm Order</button>
           </div>
           </form>
         </div>

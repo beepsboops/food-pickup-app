@@ -1,6 +1,6 @@
 .order-submit-container {
   margin-top: 1rem;
-  min-height: 80vh;
+  min-height: 75vh;
 
   .quantity-counter-container {
     width: 30%;
@@ -11,20 +11,37 @@
     }
   };
 
-  .card-header {
+  .order-submission-header {
     font-family: "Cinzel", sans-serif;
-    font-size: 36px;
-    padding-left: 3rem;
+    font-size: 34px;
+    text-align: center;
   }
 
-  .card-body {
-    padding: 3rem;
 
-    .orders-table {
-      width: 80%;
+  .order-submission-body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 3rem 12rem;
+    font-family: "Quattrocento", sans-serif;
+
+    h4 {
+      font-weight: 600;
+    }
+
+    h5 {
+      font-weight: 600;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
-      grid-auto-rows: auto;
+      margin-top: 1rem;
+    };
+
+    .orders-table {
+      display: flex;
+      flex-direction: column;
 
       .table-header-row {
         display: flex;
@@ -64,9 +81,6 @@
       .table-body {
         display: flex;
         flex-direction: column;
-        grid-row-start: 2;
-        grid-column-start: 1;
-        grid-column-end: 5;
 
         .order-data-row {
           display: flex;
@@ -128,7 +142,7 @@
     }
 
     button {
-      width: 50%;
+      width: 15%;
     }
   }
 }
