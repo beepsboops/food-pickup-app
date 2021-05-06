@@ -43,9 +43,10 @@ module.exports = () => {
         if (results.password === password) {
           const templateVars = {
             displayName: results.name,
-            phone: results.phone,
+            phone: results.phone
           };
           res.cookie("displayName", templateVars.displayName);
+          res.cookie("userID", results.id);
           return res.render("home", templateVars);
         } else {
           return res.redirect("/login");
@@ -89,8 +90,7 @@ module.exports = () => {
   router.post("/menu/:item_id", (req, res) => {
     let itemId = req.params.item_id;
     let quantity = req.body.quantity;
-    //hard coding user id
-    getCurrentOrder(1)
+    getCurrentOrder(req.cookies.userID)
       .then((order_id) => {
         return addOrderItem(order_id, itemId, quantity);
       })
@@ -102,7 +102,7 @@ module.exports = () => {
 
   // temp order ID get
   router.get("/order_submit", (req, res) => {
-    getOrderData()
+    getOrderData(req.cookies.displayName)
       .then((results) => {
         const templateVars = {
           results,
@@ -156,6 +156,15 @@ module.exports = () => {
 
   router.post("/sms", (req, res) => {
     smsOrderPickup(req, res);
+  });
+
+
+  // needs to be fixed kldfgjfldkgjdflkg
+  router.post("/logout", (req, res) => {
+    console.log('working');
+    res.clearCookie('displayName');
+    res.clearCookie('userID');
+    return res.redirect("/");
   });
 
   return router;

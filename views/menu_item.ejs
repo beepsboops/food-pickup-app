@@ -23,6 +23,7 @@
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
     <!-- Cinzel 400, 600 -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
     <!-- Quattrocento 400 -->
@@ -43,14 +44,17 @@
         <img src= "<%= results.large_photo %>" width='auto' height='300px'>
         <div class="card-body">
           <h4 class="card-title"><%= results.name %></h4>
+          <hr>
           <p class="card-text"><%= results.description %></p>
-          <p class="card-text"><%= (results.price/100).toFixed(2) %></p>
-          <label>Select Quantity:<input name="quantity" class="item-quantity" type="number" min="1"></label>
-          <input type="submit" value="Add to Cart">
+          <p class="card-price">$<%= (results.price/100).toFixed(2) %></p>
+          <div class="add-to-cart">
+          <input name="quantity" class="item-quantity" type="number" min="1">
+          <input class="btn btn-success" type="submit" value="ADD TO CART">
+          </div>
         </div>
       </form>
     </main>
-
+    <%- include('partials/_footer') %>
     <!-- Bootstrap required scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>

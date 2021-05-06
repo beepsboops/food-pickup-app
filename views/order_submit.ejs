@@ -38,57 +38,63 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main class='order-submit-container card'>
-      <h3 class="card-header">Order Summary</h3>
-      <div class="card-body">
-        <h4 class="card-title">Name: <%= results[0].user_name %></h4>
-        <h5>Phone: <%= results[0].phone %></h5>
-        <h5 class='order-id'>Order #<%= results[0].order_id %></h5>
-        <% const event = new Date(results[0].time_placed);%>
-        <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
-        <h5><%= event.toLocaleDateString(undefined, options) %></h5>
-        <form class="order-submission-data" method="POST">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Item #</th>
-              <th scope="col">Item Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Subtotal</th>
-            </tr>
-          </thead>
-          <tbody class='table-body'>
-            <% let total = 0 %>
-            <% for(let i=0; i<results.length; i++) { %>
-              <tr class='order-data-row'>
-                <td class="order-submission-id" id="item-id-<%= i %>"><%= results[i].order_submission_id %></td>
-                <td class="item-name" id="item-name-<%= i %>"><%= results[i].item_name %></td>
-                <td class="item-price">$<%= (results[i].price / 100).toFixed(2) %></td>
-                <td class="quantity-counter-container">
-                  <div class="quantity-counter">
-                    <button type="button" class="btn btn-dark button-down" id="button-down-<%= i %>">-</button>
-                  <input type="text" class='quantity-value' value='<%= results[i].quantity %>' id='quantity-value-<%= i %>'>
-                  <button type="button" class="btn btn-dark button-up" id="button-up-<%= i %>">+</button>
-                  </div>
-                </td>
-                <td class="item-subtotal">$<%= (results[i].price / 100).toFixed(2) * results[i].quantity%></td>
-              </tr>
-              <% total += (results[i].price / 100).toFixed(2) * results[i].quantity %>
-            <% } %>
-          </tbody>
-        </table>
-        <div class="checkout-summary">
-          <div class="total-price">
-            <h5>Total Price</h5>
-            <h5 class='total-price-value'>$<%= total %></h5>
-          </div>
-          <button type="submit">Confirm Order</button>
+    <main class='order-submit-container'>
+      <h3 class="order-submission-header">Order Summary</h3>
+      <% if(results.length === 0 || typeof results === 'undefined'){ %>
+        <div class="order-submission-body">
+          <h5>Oh wow, there's nothing here!</h5>
+          <p>Would you like to checkout the menu?</p>
+          <a href="/menu" class="btn btn-dark button-up">View Menu</a>
         </div>
-        </form>
-      </div>
+      <% } else{ %>
+        <div class="order-submission-body">
+          <h4>Name: <%= results[0].user_name %></h4>
+          <h5>Phone: <%= results[0].phone %></h5>
+          <h5 class='order-id'>Order #<%= results[0].order_id %></h5>
+          <% const event = new Date();%>
+          <% const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };%>
+          <h5><%= event.toLocaleDateString(undefined, options) %></h5>
+          <form class="order-submission-data" method="POST">
+          <div class="orders-table">
+            <div class="table-header-row">
+              <div scope="col" class="table-header item-col">Item #</div>
+              <div scope="col" class="table-header name-col">Item Name</div>
+              <div scope="col" class="table-header price-col">Price</div>
+              <div scope="col" class="table-header quantity-col">Quantity</div>
+              <div scope="col" class="table-header subtotal-col">Subtotal</div>
+            </div>
+            <div class='table-body'>
+              <% let total = 0 %>
+              <% for(let i=0; i<results.length; i++) { %>
+                <div class='order-data-row'>
+                  <div class="order-submission-id" id="item-id-<%= i %>"><%= results[i].order_submission_id %></div>
+                  <div class="item-name" id="item-name-<%= i %>"><%= results[i].item_name %></div>
+                  <div class="item-price">$<%= (results[i].price / 100).toFixed(2) %></div>
+                  <div class="quantity-counter-container">
+                    <div class="quantity-counter">
+                      <button type="button" class="btn btn btn-outline-dark btn-sm button-down" id="button-down-<%= i %>"><i class="fas fa-minus"></i></button>
+                    <input type="text" class='quantity-value' value='<%= results[i].quantity %>' id='quantity-value-<%= i %>'>
+                    <button type="button" class="btn btn btn-outline-dark btn-sm button-up" id="button-up-<%= i %>"><i class="fas fa-plus"></i></button>
+                    </div>
+                  </div>
+                  <div class="item-subtotal">$<%= (results[i].price / 100 * results[i].quantity).toFixed(2) %></div>
+                </div>
+                <% total += (results[i].price / 100).toFixed(2) * results[i].quantity %>
+              <% } %>
+            </div>
+          </div>
+          <div class="checkout-summary">
+            <div class="total-price">
+              <h5>Total Price</h5>
+              <h5 class='total-price-value'>$<%= total.toFixed(2) %></h5>
+            </div>
+            <button type="submit" class="btn btn btn-outline-dark">Confirm Order</button>
+          </div>
+          </form>
+        </div>
+      <% } %>
     </main>
-
+    <%- include('partials/_footer') %>
     <!-- Bootstrap required scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
