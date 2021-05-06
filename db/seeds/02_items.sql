@@ -8,4 +8,5 @@ VALUES
   ('Tofu Red Coconut Curry', 'Fresh vegetable medley and tofu in a spicy coconut curry sauce, served over jasmine rice.', 'images/thumbnail_curry.jpg', '/images/large_curry.jpg', 1599, 10),
   ('Baja Fish Tacos', 'Crispy catch of the day, coleslaw, pickled red onion, chipotle mayo. Served in two corn tortillas.', 'images/thumbnail_tacos.jpg', '/images/large_tacos.jpg', 999, 12),
   ('East Coast Donair', 'Tender, sliced, ground lamb, fresh tomatos, red onion, drizzeled with tangy donair sauce and wrapped in a warm pita.', 'images/thumbnail_donair.jpg', '/images/large_donair.jpg', 1299, 5),
-  ('Double Stacked Cheese Burger', 'Two housemade all beef patties, layered with cheddar, maple bacon and all the classics. Served with fries.', 'images/thumbnail_burger.jpg', '/images/large_burger.jpg', 1699, 9);
+  ('Double Stacked Cheese Burger', 'Two housemade all beef patties, layered with cheddar, maple bacon and all the classics. Served with fries.', 'images/thumbnail_burger.jpg', '/images/large_burger.jpg', 1699, 9),
+  ('Chicken Wings', 'A dozen cripsy wings tossed in honey garlic sauce', 'images/thumbnail_wings.jpg', '/images/large_wings.jpg', 999, 7);
