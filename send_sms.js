@@ -17,6 +17,7 @@ const pool = new Pool({
 
 // Function that gets order data from View Cart -> Confirm Order and formats it for SMS
 const smsOrderInfo = function (data) {
+  console.log("*** At smsOrderInfo Function ***");
   let orderItems = [];
   let timestamp = data[0].time_confirmed;
   let orderId = data[0].order_id;
@@ -30,6 +31,7 @@ const smsOrderInfo = function (data) {
 
 // Function that sends SMS to customer confirming order #, order items, and time received
 const smsOrderReceived = function (messageBody) {
+  console.log("*** At smsOrderReceived Function ***");
   console.log("smsOrderReceived: messageBody:", messageBody);
   // console.log({ client });
   client.messages
@@ -43,6 +45,7 @@ const smsOrderReceived = function (messageBody) {
 
 // Function that sends SMS from restaurant to customer confirming pickup time
 const smsOrderPickup = function (req, res) {
+  console.log("*** At smsOrderPickup Function ***");
   const twiml = new MessagingResponse();
   const smsOrderPickupArr = req.body.Body.split("-");
   const orderId = smsOrderPickupArr[0];
@@ -54,7 +57,7 @@ const smsOrderPickup = function (req, res) {
 
   // Query db to update "time_fulfilled" in "orders" table for specific order, and return customer name
   const queryString = `UPDATE orders
-  SET time_fulfilled = time_placed + $1
+  SET time_fulfilled = time_confirmed + $1
   FROM users
   WHERE users.id = user_id
   AND orders.id = $2

@@ -43,7 +43,7 @@ module.exports = () => {
         if (results.password === password) {
           const templateVars = {
             displayName: results.name,
-            phone: results.phone
+            phone: results.phone,
           };
           res.cookie("displayName", templateVars.displayName);
           res.cookie("userID", results.id);
@@ -116,10 +116,12 @@ module.exports = () => {
   });
 
   router.post("/order_submit", (req, res) => {
+    console.log("*** At router.post /order_submit ***");
     let data = req.body.orderSubmissionData;
     let smsData = smsOrderInfo(data);
-    console.log("router.post: data:", data);
-    console.log("router.post: smsData:", data);
+    console.log("router.post: order_submit: req.body:", req.body);
+    console.log("router.post: order_submit: data:", data);
+    console.log("router.post: order_submit: smsData:", smsData);
     updateOrderSubmission(data).then(() =>
       updateOrderStatus(data)
         .then(res.send("Order Status Updated"))
@@ -148,22 +150,24 @@ module.exports = () => {
     res.render("register", templateVars);
   });
 
-  router.post("/orders", (req, res) => {
-    smsOrderReceived(req.body.order);
-    console.log(req.body);
-    res.redirect("/orders");
-  });
+  // router.post("/orders", (req, res) => {
+  //   smsOrderReceived(req.body.order);
+  //   console.log(req.body);
+  //   res.redirect("/orders");
+  // });
 
   router.post("/sms", (req, res) => {
+    console.log("*** At router.post /sms ***");
+    // const templateVars = { pickupTime: pickupMins}
     smsOrderPickup(req, res);
+    // res.render("order")
   });
-
 
   // needs to be fixed kldfgjfldkgjdflkg
   router.post("/logout", (req, res) => {
-    console.log('working');
-    res.clearCookie('displayName');
-    res.clearCookie('userID');
+    console.log("working");
+    res.clearCookie("displayName");
+    res.clearCookie("userID");
     return res.redirect("/");
   });
 
