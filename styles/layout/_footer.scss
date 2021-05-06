@@ -12,10 +12,16 @@
     width: 90%;
     border-top: 3px solid black;
   }
+
   .footer-content {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+    }
 
     h6 {
       font-size: 24px;
@@ -24,10 +30,15 @@
 
     }
 
-    p {
+    a {
       margin: 0;
       font-family: "Lora", sans-serif;
       font-size: 16px;
+      color: black;
+    }
+
+    a:link, a:visited, a:hover, a:active {
+      text-decoration: none;
     }
 
     .copyright-content {

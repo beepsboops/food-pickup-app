@@ -81,7 +81,6 @@ const updateOrderSubmission = function(dataArray) {
     `;
     const values = [Number(dataArray[0].order_id), Number(dataArray[i].id), Number(dataArray[i].quantity)]
 
-    console.log(values);
     array.push(pool.query(queryString, values))
   }
 

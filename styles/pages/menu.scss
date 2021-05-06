@@ -1,6 +1,8 @@
 .menu-container {
   width: 100%;
   padding: 1em 2em;
+  font-family: "Lora", sans-serif;
+  font-size: 18px;
 
   .menu-items-container {
     display: flex;
@@ -10,9 +12,9 @@
 
   h1 {
     text-align: center;
-    margin: 2em 0;
-    font-family: "Quattrocento", sans-serif;
-    font-weight: 600;
+    font-family: "Cinzel", sans-serif;
+    font-size: 36px;
+    margin-bottom: 1rem;
   }
 
   .card {
@@ -20,6 +22,54 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 10px;
     margin: 10px;
+
+    .picture-col {
+      width: 33%;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .content-col {
+      width: 66%;
+      height: 300px;
+      display: flex;
+      align-items: center;
+
+      .card-title {
+        font-family: "Quattrocento", sans-serif;
+        font-size: 26px;
+        margin-bottom: 1.25rem;
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding-top: 2rem;
+
+        .name {
+          height: 60px;
+          margin: 0;
+        }
+
+        .description {
+          height: 100px;
+          margin: 0;
+        }
+
+        .price {
+          height: 40px;
+          margin: 0;
+        }
+
+        button {
+          height: 50px
+        }
+
+
+      }
+    }
   }
 
   .btn {
