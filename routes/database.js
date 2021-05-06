@@ -10,18 +10,18 @@ const pool = new Pool({
 });
 
 
- const getUserWithEmail = function(email) {
-  const queryString = `SELECT users.* FROM users WHERE email=$1;`
-  const values = [email];
+const getUserWithEmail = function(email) {
+const queryString = `SELECT users.* FROM users WHERE email=$1;`
+const values = [email];
 
-  return pool
-    .query(queryString, values)
-      .then((result) => {
-        return result.rows[0];
-      })
-      .catch((err) => {
-        console.log(err.message)
-      });
+return pool
+  .query(queryString, values)
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message)
+    });
 }
 
 exports.getUserWithEmail = getUserWithEmail;
