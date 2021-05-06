@@ -79,7 +79,7 @@ $(document).ready(function() {
 
     $.ajax({
       method: "POST",
-      url: "/orders",
+      url: "/order_submit",
       data: { orderSubmissionData: orderSubmissionData }
     }).done((response) => {
       console.log('working...', response);
