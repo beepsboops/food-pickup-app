@@ -4,7 +4,11 @@ const router = express.Router();
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-const { sendSms, smsOrderInfo, smsOrderReply } = require("../send_sms");
+const {
+  smsOrderInfo,
+  smsOrderReceived,
+  smsOrderPickup,
+} = require("../send_sms");
 
 const {
   getMenuItems,
@@ -119,7 +123,7 @@ module.exports = () => {
     updateOrderSubmission(data).then(() =>
       updateOrderStatus(data)
         .then(res.send("Order Status Updated"))
-        .then(sendSms(smsData))
+        .then(smsOrderReceived(smsData))
     );
   });
 
@@ -145,13 +149,13 @@ module.exports = () => {
   });
 
   router.post("/orders", (req, res) => {
-    sendSms(req.body.order);
+    smsOrderReceived(req.body.order);
     console.log(req.body);
     res.redirect("/orders");
   });
 
   router.post("/sms", (req, res) => {
-    smsOrderReply(req, res);
+    smsOrderPickup(req, res);
   });
 
   return router;
