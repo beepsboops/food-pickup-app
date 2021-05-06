@@ -39,15 +39,12 @@
   <body>
     <%- include('partials/_header') %>
     <main class='order-status-container'>
-      <div class="wrapper">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <div class="shadow"></div>
-        <span>Your order is processing...</span>
-    </div>
+      <div class="order-status">
+        <div class="spinner-border" role="status">
+        </div>
+        <h4>Your order is processing...</h4>
+      </div>
+
     </main>
     <%- include('partials/_footer') %>
     <!-- Bootstrap required scripts -->

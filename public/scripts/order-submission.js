@@ -38,6 +38,7 @@ $(document).ready(function() {
     if (quantity >= 10) {
       alert("You need to chill...");
       quantity = 10;
+      $(this).siblings('.quantity-value').val(quantity)
     } else if (quantity < 10) {
       quantity +=1;
       $(this).siblings('.quantity-value').val(quantity)
