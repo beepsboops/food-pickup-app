@@ -142,6 +142,7 @@ module.exports = () => {
     console.log("working");
     res.clearCookie("displayName");
     res.clearCookie("userID");
+    res.clearCookie("order_id");
     return res.redirect("/");
   });
 
