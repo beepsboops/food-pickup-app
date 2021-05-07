@@ -1,16 +1,12 @@
-$(document).ready(function() {
-
+$(document).ready(function () {
   // change order status
-  $('.order-status').click(() => {
+  $(".wrapper").click(() => {
     // add SQL function to update order status - active to processed? to confirmed?
-    $('.order-status').replaceWith(`<div class='order-status'>
-    Order Confirmed! You're ETA is 40 minutes! Redirecting to home...</div>`)
-    setTimeout(function() {
+    $(".wrapper").replaceWith(
+      "<span>Order Confirmed! You're ETA is 40 minutes! Redirecting to home...</span>"
+    );
+    setTimeout(function () {
       window.location.replace("/");
     }, 3000);
   });
-
 });
-
-
-

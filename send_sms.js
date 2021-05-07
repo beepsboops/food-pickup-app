@@ -18,15 +18,16 @@ const pool = new Pool({
 // Function that gets order data from View Cart -> Confirm Order and formats it for SMS
 const smsOrderInfo = function (data) {
   console.log("*** At smsOrderInfo Function ***");
+
   let orderItems = [];
-  let timestamp = data[0].time_confirmed;
+  // let timestamp = data[0].time_confirmed;
   let orderId = data[0].order_id;
   for (let i = 1; i < data.length; i++) {
     let quantity = data[i].quantity;
     let item = data[i].itemName;
     orderItems.push(` ${quantity}x ${item}`);
   }
-  return `Order #${orderId} received. For:${orderItems} on ${timestamp}`;
+  return `Order #${orderId} received. For:${orderItems}`;
 };
 
 // Function that sends SMS to customer confirming order #, order items, and time received
@@ -57,7 +58,7 @@ const smsOrderPickup = function (req, res) {
 
   // Query db to update "time_fulfilled" in "orders" table for specific order, and return customer name
   const queryString = `UPDATE orders
-  SET time_fulfilled = time_confirmed + $1
+  SET time_fulfilled = time_confirmed + $1, order_status = 'Delivered'
   FROM users
   WHERE users.id = user_id
   AND orders.id = $2
@@ -75,8 +76,14 @@ const smsOrderPickup = function (req, res) {
       twiml.message(
         `Hello ${customer}. Order #${orderId} will be ready for pick up in ${pickupMins} mins`
       );
+      console.log("smsOrderPickup: twiml:", twiml.toString());
+      const templateVars = { pickupTime: pickupMins.toString() };
+      return templateVars;
+    })
+    .then((templateVars) => {
       res.writeHead(200, { "Content-Type": "text/xml" });
       res.end(twiml.toString());
+      // res.render("home", templateVars);
     })
     .catch((err) => {
       console.log(err.message);
