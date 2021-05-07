@@ -13,8 +13,6 @@
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <script type="text/javascript" src="/scripts/document-ready.js"></script>
-    <script type="text/javascript" src="/scripts/order-status.js"></script>
     <script type="text/javascript" src="/scripts/order-submission.js"></script>
     <script type="text/javascript" src="/scripts/sidebar.js"></script>
 
@@ -41,10 +39,9 @@
     <main class='order-submit-container'>
       <h3 class="order-submission-header">Order Summary</h3>
       <% if(results.length === 0 || typeof results === 'undefined'){ %>
-        <div class="order-submission-body">
-          <h5>Oh wow, there's nothing here!</h5>
-          <p>Would you like to checkout the menu?</p>
-          <a href="/menu" class="btn btn-dark button-up">View Menu</a>
+        <div class="empty-cart">
+          <p>Oh wow, there's nothing here!</p>
+          <p>Would you like to checkout the <a href="/menu">menu</a>?</p>
         </div>
       <% } else{ %>
         <div class="order-submission-body">

@@ -8,14 +8,14 @@ const {
   smsOrderInfo,
   smsOrderReceived,
   smsOrderPickup,
-} = require("../send_sms");
+} = require("../lib/sms_queries");
 
 const {
   getMenuItems,
   getItemById,
   addOrderItem,
   getCurrentOrder,
-} = require("./menuQuery");
+} = require("../lib/menu_queries");
 // const bodyParser = require("body-parser");
 // router.use(bodyParser.urlencoded({ extended: true }));
 const {
@@ -23,19 +23,14 @@ const {
   getOrderData,
   updateOrderSubmission,
   updateOrderStatus,
-} = require("./database");
+  getPickupTime,
+} = require("../lib/order_queries");
 
 module.exports = () => {
-  // general get methods/templates, please delete or rewrite if neccessary
-  router.get("/errors", (req, res) => {
-    res.render("error");
-  });
-
   router.get("/login", (req, res) => {
     res.render("login");
   });
 
-  //Login Post Method
   router.post("/login", (req, res) => {
     const { email, password } = req.body;
     getUserWithEmail(email)
@@ -86,12 +81,12 @@ module.exports = () => {
       });
   });
 
-  //post menu item to order
   router.post("/menu/:item_id", (req, res) => {
     let itemId = req.params.item_id;
     let quantity = req.body.quantity;
     getCurrentOrder(req.cookies.userID)
       .then((order_id) => {
+        res.cookie("order_id", order_id);
         return addOrderItem(order_id, itemId, quantity);
       })
       .then(() => res.redirect("/menu"))
@@ -100,7 +95,6 @@ module.exports = () => {
       });
   });
 
-  // temp order ID get
   router.get("/order_submit", (req, res) => {
     getOrderData(req.cookies.displayName)
       .then((results) => {
@@ -137,39 +131,24 @@ module.exports = () => {
     res.render("order_status", templateVars);
   });
 
-  router.get("/profile", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("profile", templateVars);
-  });
-
-  router.get("/register", (req, res) => {
-    const templateVars = {
-      displayName: req.cookies.displayName,
-    };
-    res.render("register", templateVars);
-  });
-
-  // router.post("/orders", (req, res) => {
-  //   smsOrderReceived(req.body.order);
-  //   console.log(req.body);
-  //   res.redirect("/orders");
-  // });
-
   router.post("/sms", (req, res) => {
     console.log("*** At router.post /sms ***");
     // const templateVars = { pickupTime: pickupMins}
     smsOrderPickup(req, res);
-    // res.render("order")
+    // res.render("home");
   });
 
-  // needs to be fixed kldfgjfldkgjdflkg
   router.post("/logout", (req, res) => {
     console.log("working");
     res.clearCookie("displayName");
     res.clearCookie("userID");
     return res.redirect("/");
+  });
+
+  router.get("/check5seconds", (req, res) => {
+    getPickupTime(req.cookies.userID, req.cookies.order_id).then((result) => {
+      res.json(result);
+    });
   });
 
   return router;
