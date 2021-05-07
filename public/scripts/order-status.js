@@ -1,16 +1,22 @@
 $(document).ready(function() {
 
-  // change order status
-  $('.order-status').click(() => {
-    // add SQL function to update order status - active to processed? to confirmed?
-    $('.order-status').replaceWith(`<div class='order-status'>
-    Order Confirmed! You're ETA is 40 minutes! Redirecting to home...</div>`)
-    setTimeout(function() {
-      window.location.replace("/");
-    }, 3000);
-  });
+  var interval = setInterval(() => {
+    $.ajax({
+      method: "GET",
+      url: "/check5seconds"
+    }).done((response) => {
+      if (response !== -1) {
+      $('.order-status').replaceWith(`<div class="order-status"><h4>Order Confirmed! You're ETA is ${response.minutes} minutes. Redirecting to home...</h4></div>`)
+      setTimeout(function () {
+        window.location.replace("/");
+      }, 3000);
+      clearInterval(interval);
+      }
+    })
+  }, 1000);
 
 });
+
 
 
 

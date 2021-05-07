@@ -23,6 +23,7 @@ const {
   getOrderData,
   updateOrderSubmission,
   updateOrderStatus,
+  getPickupTime
 } = require("../lib/order_queries");
 
 module.exports = () => {
@@ -142,6 +143,14 @@ module.exports = () => {
     res.clearCookie("userID");
     return res.redirect("/");
   });
+
+  router.get("/check5seconds", (req, res) => {
+    getPickupTime(req.cookies.userID)
+    .then((result) => {
+      res.json(result)
+    });
+
+  })
 
   return router;
 };
