@@ -134,7 +134,7 @@ module.exports = () => {
     console.log("*** At router.post /sms ***");
     // const templateVars = { pickupTime: pickupMins}
     smsOrderPickup(req, res);
-    // res.render("order")
+    // res.render("home");
   });
 
   router.post("/logout", (req, res) => {
