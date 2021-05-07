@@ -6,7 +6,7 @@ $(document).ready(function () {
     }).done((response) => {
       if (response !== -1) {
         $(".order-status").replaceWith(
-          `<div class="order-status"><h4>Order Confirmed! You're ETA is ${response.minutes} minutes. Redirecting to home...</h4></div>`
+          `<div class="order-status"><h4>Order Confirmed! Your ETA is ${response.minutes} minutes. Redirecting to home...</h4></div>`
         );
         setTimeout(function () {
           window.location.replace("/");
