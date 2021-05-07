@@ -39,13 +39,13 @@
   <body>
     <%- include('partials/_header') %>
     <main class='login-container'>
-      <h3>User Login</h3>
+      <h4>Login</h4>
+      <p>Welcome back! Login to make a new order</p>
+      <p>Did you <a href>forget your password?</a></p>
       <form action="/login" method="POST">
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email">
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" id="password">
-        <button type="submit">Login</button>
+        <input type="text" placeholder="Email" name="email" id="email">
+        <input type="password" placeholder="Password" name="password" id="password">
+        <button type="submit" class="btn btn btn-outline-dark">Continue</button>
       </form>
     </main>
     <%- include('partials/_footer') %>
